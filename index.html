@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Attendance Management System</title>
+    <title>School Management System</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -12,73 +12,384 @@
         <div class="login-container">
             <div class="login-card">
                 <div class="login-header">
-                    <h1>Attendance Management System</h1>
-                    <p>Faculty Login</p>
+                    <h1>School Management System</h1>
+                    <p>Please select your role to login</p>
                 </div>
+                
+                <div class="role-selector">
+                    <button id="adminRoleBtn" class="role-btn active" data-role="admin">
+                        <div class="role-icon">🏫</div>
+                        <div class="role-title">Administrator</div>
+                        <div class="role-desc">Full system access</div>
+                    </button>
+                    <button id="facultyRoleBtn" class="role-btn" data-role="faculty">
+                        <div class="role-icon">👨‍🏫</div>
+                        <div class="role-title">Faculty</div>
+                        <div class="role-desc">Attendance marking</div>
+                    </button>
+                </div>
+
                 <form id="loginForm" class="login-form">
-                    <div class="form-group">
-                        <label for="facultyName" class="form-label">Faculty Name</label>
-                        <input type="text" id="facultyName" class="form-control" required placeholder="Enter your full name">
+                    <div id="adminFields" class="role-fields">
+                        <div class="form-group">
+                            <label for="adminUsername" class="form-label">Username</label>
+                            <input type="text" id="adminUsername" class="form-control" placeholder="Enter admin username">
+                        </div>
+                        <div class="form-group">
+                            <label for="adminPassword" class="form-label">Password</label>
+                            <input type="password" id="adminPassword" class="form-control" placeholder="Enter admin password">
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="employeeId" class="form-label">Employee ID</label>
-                        <input type="text" id="employeeId" class="form-control" required placeholder="Enter your employee ID">
+                    
+                    <div id="facultyFields" class="role-fields hidden">
+                        <div class="form-group">
+                            <label for="facultyName" class="form-label">Faculty Name</label>
+                            <input type="text" id="facultyName" class="form-control" placeholder="Enter your full name">
+                        </div>
+                        <div class="form-group">
+                            <label for="employeeId" class="form-label">Employee ID</label>
+                            <input type="text" id="employeeId" class="form-control" placeholder="Enter your employee ID">
+                        </div>
                     </div>
+                    
                     <button type="submit" class="btn btn--primary btn--full-width">Login</button>
                 </form>
+                
+                <div class="demo-credentials">
+                    <h4>Demo Credentials:</h4>
+                    <p><strong>Admin:</strong> admin / admin123</p>
+                    <p><strong>Faculty:</strong> Any name + EMP001-EMP006</p>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Dashboard/Main App -->
-    <div id="mainApp" class="screen hidden">
-        <!-- Header -->
+    <!-- Admin Dashboard -->
+    <div id="adminApp" class="screen hidden">
         <header class="app-header">
             <div class="header-content">
-                <h1 class="app-title">Attendance Management</h1>
+                <h1 class="app-title">School Management System</h1>
                 <div class="header-user">
-                    <span id="welcomeText">Welcome, Faculty</span>
-                    <button id="logoutBtn" class="btn btn--outline btn--sm">Logout</button>
+                    <span id="adminWelcomeText">Welcome, Administrator</span>
+                    <button id="adminLogoutBtn" class="btn btn--outline btn--sm">Logout</button>
                 </div>
             </div>
         </header>
 
-        <!-- Navigation -->
         <nav class="app-nav">
             <div class="nav-container">
-                <button class="nav-btn active" data-section="dashboard">Dashboard</button>
-                <button class="nav-btn" data-section="markAttendance">Mark Attendance</button>
-                <button class="nav-btn" data-section="viewRecords">View Records</button>
-                <button class="nav-btn" data-section="reports">Reports</button>
-                <button class="nav-btn" data-section="profile">Profile</button>
+                <button class="nav-btn active" data-section="adminDashboard">Dashboard</button>
+                <button class="nav-btn" data-section="studentManagement">Students</button>
+                <button class="nav-btn" data-section="facultyManagement">Faculty</button>
+                <button class="nav-btn" data-section="subjectManagement">Subjects</button>
+                <button class="nav-btn" data-section="classManagement">Classes</button>
+                <button class="nav-btn" data-section="attendanceReports">Reports</button>
+                <button class="nav-btn" data-section="systemSettings">Settings</button>
             </div>
         </nav>
 
-        <!-- Main Content -->
         <main class="app-main">
-            <!-- Dashboard Section -->
-            <section id="dashboard" class="content-section active">
+            <!-- Admin Dashboard -->
+            <section id="adminDashboard" class="content-section active">
                 <div class="container">
-                    <h2>Dashboard</h2>
+                    <h2>Administrator Dashboard</h2>
+                    <div class="dashboard-stats">
+                        <div class="stat-card">
+                            <h3>Total Students</h3>
+                            <div class="stat-value" id="totalStudentsCount">0</div>
+                            <p>Enrolled students</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Total Faculty</h3>
+                            <div class="stat-value" id="totalFacultyCount">0</div>
+                            <p>Active faculty members</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Total Classes</h3>
+                            <div class="stat-value" id="totalClassesCount">0</div>
+                            <p>Available classes</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Today's Attendance</h3>
+                            <div class="stat-value" id="todayAttendanceCount">0</div>
+                            <p>Classes marked today</p>
+                        </div>
+                    </div>
+                    <div class="quick-actions">
+                        <h3>Quick Actions</h3>
+                        <div class="action-buttons">
+                            <button class="btn btn--primary" data-section="studentManagement">Manage Students</button>
+                            <button class="btn btn--secondary" data-section="facultyManagement">Manage Faculty</button>
+                            <button class="btn btn--outline" data-section="attendanceReports">View Reports</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Student Management -->
+            <section id="studentManagement" class="content-section">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>Student Management</h2>
+                        <div class="section-actions">
+                            <button id="addStudentBtn" class="btn btn--primary">Add Student</button>
+                            <button id="bulkImportBtn" class="btn btn--secondary">Bulk Import</button>
+                        </div>
+                    </div>
+                    
+                    <div class="search-filter-bar">
+                        <input type="text" id="studentSearchInput" class="form-control" placeholder="Search students...">
+                        <select id="classFilter" class="form-control">
+                            <option value="">All Classes</option>
+                        </select>
+                        <select id="sectionFilter" class="form-control">
+                            <option value="">All Sections</option>
+                        </select>
+                    </div>
+                    
+                    <div id="studentsTable" class="data-table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Roll No</th>
+                                    <th>Name</th>
+                                    <th>Class</th>
+                                    <th>Section</th>
+                                    <th>Parent Contact</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="studentsTableBody">
+                                <!-- Students will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Faculty Management -->
+            <section id="facultyManagement" class="content-section">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>Faculty Management</h2>
+                        <div class="section-actions">
+                            <button id="addFacultyBtn" class="btn btn--primary">Add Faculty</button>
+                        </div>
+                    </div>
+                    
+                    <div class="search-filter-bar">
+                        <input type="text" id="facultySearchInput" class="form-control" placeholder="Search faculty...">
+                        <select id="departmentFilter" class="form-control">
+                            <option value="">All Departments</option>
+                        </select>
+                    </div>
+                    
+                    <div id="facultyTable" class="data-table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Employee ID</th>
+                                    <th>Name</th>
+                                    <th>Department</th>
+                                    <th>Subjects</th>
+                                    <th>Contact</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="facultyTableBody">
+                                <!-- Faculty will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Subject Management -->
+            <section id="subjectManagement" class="content-section">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>Subject Management</h2>
+                        <div class="section-actions">
+                            <button id="addSubjectBtn" class="btn btn--primary">Add Subject</button>
+                        </div>
+                    </div>
+                    
+                    <div id="subjectsTable" class="data-table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Subject Code</th>
+                                    <th>Subject Name</th>
+                                    <th>Category</th>
+                                    <th>Credits</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="subjectsTableBody">
+                                <!-- Subjects will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Class Management -->
+            <section id="classManagement" class="content-section">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>Class Management</h2>
+                        <div class="section-actions">
+                            <button id="addClassBtn" class="btn btn--primary">Add Class</button>
+                        </div>
+                    </div>
+                    
+                    <div id="classesTable" class="data-table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Class ID</th>
+                                    <th>Class Name</th>
+                                    <th>Sections</th>
+                                    <th>Student Count</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="classesTableBody">
+                                <!-- Classes will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Attendance Reports -->
+            <section id="attendanceReports" class="content-section">
+                <div class="container">
+                    <h2>Attendance Reports</h2>
+                    <div class="reports-section">
+                        <div class="report-controls">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="reportStartDate" class="form-label">Start Date</label>
+                                    <input type="date" id="reportStartDate" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="reportEndDate" class="form-label">End Date</label>
+                                    <input type="date" id="reportEndDate" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="reportClass" class="form-label">Class</label>
+                                    <select id="reportClass" class="form-control">
+                                        <option value="">All Classes</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <button id="generateAdminReportBtn" class="btn btn--primary">Generate Report</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="adminReportResults" class="report-results">
+                            <p class="no-data">Select filters and click "Generate Report" to view attendance data.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- System Settings -->
+            <section id="systemSettings" class="content-section">
+                <div class="container">
+                    <h2>System Settings</h2>
+                    <div class="settings-grid">
+                        <div class="setting-card">
+                            <h3>Academic Year</h3>
+                            <div class="setting-content">
+                                <label class="form-label">Current Academic Year</label>
+                                <select id="academicYear" class="form-control">
+                                    <option value="2024-25">2024-25</option>
+                                    <option value="2025-26">2025-26</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="setting-card">
+                            <h3>School Timings</h3>
+                            <div class="setting-content">
+                                <div class="form-group">
+                                    <label class="form-label">School Start Time</label>
+                                    <input type="time" class="form-control" value="09:00">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">School End Time</label>
+                                    <input type="time" class="form-control" value="15:00">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="setting-card">
+                            <h3>Notifications</h3>
+                            <div class="setting-content">
+                                <div class="checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" checked> Email notifications
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" checked> SMS notifications
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox"> Low attendance alerts
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Faculty Dashboard -->
+    <div id="facultyApp" class="screen hidden">
+        <header class="app-header">
+            <div class="header-content">
+                <h1 class="app-title">Faculty Portal</h1>
+                <div class="header-user">
+                    <span id="facultyWelcomeText">Welcome, Faculty</span>
+                    <button id="facultyLogoutBtn" class="btn btn--outline btn--sm">Logout</button>
+                </div>
+            </div>
+        </header>
+
+        <nav class="app-nav">
+            <div class="nav-container">
+                <button class="nav-btn active" data-section="facultyDashboard">Dashboard</button>
+                <button class="nav-btn" data-section="markAttendance">Mark Attendance</button>
+                <button class="nav-btn" data-section="viewRecords">View Records</button>
+                <button class="nav-btn" data-section="facultyReports">Reports</button>
+            </div>
+        </nav>
+
+        <main class="app-main">
+            <!-- Faculty Dashboard -->
+            <section id="facultyDashboard" class="content-section active">
+                <div class="container">
+                    <h2>Faculty Dashboard</h2>
                     <div class="dashboard-stats">
                         <div class="stat-card">
                             <h3>Today's Classes</h3>
-                            <div class="stat-value" id="todayClasses">0</div>
+                            <div class="stat-value" id="facultyTodayClasses">0</div>
                             <p>Classes scheduled</p>
                         </div>
                         <div class="stat-card">
                             <h3>Attendance Marked</h3>
-                            <div class="stat-value" id="attendanceMarked">0</div>
+                            <div class="stat-value" id="facultyAttendanceMarked">0</div>
                             <p>Classes completed</p>
                         </div>
                         <div class="stat-card">
-                            <h3>Total Students</h3>
-                            <div class="stat-value" id="totalStudents">30</div>
-                            <p>In your classes</p>
+                            <h3>Your Students</h3>
+                            <div class="stat-value" id="facultyTotalStudents">0</div>
+                            <p>Total students</p>
                         </div>
                         <div class="stat-card">
                             <h3>Average Attendance</h3>
-                            <div class="stat-value" id="avgAttendance">--</div>
+                            <div class="stat-value" id="facultyAvgAttendance">--</div>
                             <p>This week</p>
                         </div>
                     </div>
@@ -87,13 +398,12 @@
                         <div class="action-buttons">
                             <button class="btn btn--primary" data-section="markAttendance">Mark Attendance</button>
                             <button class="btn btn--secondary" data-section="viewRecords">View Records</button>
-                            <button class="btn btn--outline" data-section="reports">Generate Report</button>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Mark Attendance Section -->
+            <!-- Mark Attendance -->
             <section id="markAttendance" class="content-section">
                 <div class="container">
                     <h2>Mark Attendance</h2>
@@ -105,14 +415,26 @@
                                     <input type="date" id="attendanceDate" class="form-control" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="subject" class="form-label">Subject</label>
-                                    <select id="subject" class="form-control" required>
+                                    <label for="attendanceClass" class="form-label">Class</label>
+                                    <select id="attendanceClass" class="form-control" required>
+                                        <option value="">Select Class</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="attendanceSection" class="form-label">Section</label>
+                                    <select id="attendanceSection" class="form-control" required>
+                                        <option value="">Select Section</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="attendanceSubject" class="form-label">Subject</label>
+                                    <select id="attendanceSubject" class="form-control" required>
                                         <option value="">Select Subject</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="period" class="form-label">Period</label>
-                                    <select id="period" class="form-control" required>
+                                    <label for="attendancePeriod" class="form-label">Period</label>
+                                    <select id="attendancePeriod" class="form-control" required>
                                         <option value="">Select Period</option>
                                     </select>
                                 </div>
@@ -154,7 +476,7 @@
                 </div>
             </section>
 
-            <!-- View Records Section -->
+            <!-- View Records -->
             <section id="viewRecords" class="content-section">
                 <div class="container">
                     <h2>Attendance Records</h2>
@@ -171,9 +493,9 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="filterPeriod" class="form-label">Period</label>
-                                <select id="filterPeriod" class="form-control">
-                                    <option value="">All Periods</option>
+                                <label for="filterClass" class="form-label">Class</label>
+                                <select id="filterClass" class="form-control">
+                                    <option value="">All Classes</option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -183,76 +505,41 @@
                         </div>
                     </div>
                     <div id="recordsContainer" class="records-container">
-                        <p class="no-records">No attendance records found. Please adjust your filters or mark some attendance first.</p>
+                        <p class="no-records">No attendance records found.</p>
                     </div>
                 </div>
             </section>
 
-            <!-- Reports Section -->
-            <section id="reports" class="content-section">
+            <!-- Faculty Reports -->
+            <section id="facultyReports" class="content-section">
                 <div class="container">
-                    <h2>Reports</h2>
+                    <h2>My Reports</h2>
                     <div class="reports-section">
                         <div class="report-controls">
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label for="reportStartDate" class="form-label">Start Date</label>
-                                    <input type="date" id="reportStartDate" class="form-control">
+                                    <label for="facultyReportStartDate" class="form-label">Start Date</label>
+                                    <input type="date" id="facultyReportStartDate" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label for="reportEndDate" class="form-label">End Date</label>
-                                    <input type="date" id="reportEndDate" class="form-control">
+                                    <label for="facultyReportEndDate" class="form-label">End Date</label>
+                                    <input type="date" id="facultyReportEndDate" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label for="reportType" class="form-label">Report Type</label>
-                                    <select id="reportType" class="form-control">
+                                    <label for="facultyReportType" class="form-label">Report Type</label>
+                                    <select id="facultyReportType" class="form-control">
                                         <option value="summary">Attendance Summary</option>
                                         <option value="subject">Subject-wise Report</option>
                                         <option value="student">Student-wise Report</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <button id="generateReportBtn" class="btn btn--primary">Generate Report</button>
+                                    <button id="generateFacultyReportBtn" class="btn btn--primary">Generate Report</button>
                                 </div>
                             </div>
                         </div>
-                        <div id="reportResults" class="report-results">
-                            <p class="no-data">Select date range and report type, then click "Generate Report" to view results.</p>
-                        </div>
-                        <div id="reportActions" class="report-actions hidden">
-                            <button id="exportReportBtn" class="btn btn--secondary">Export as CSV</button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Profile Section -->
-            <section id="profile" class="content-section">
-                <div class="container">
-                    <h2>Profile Settings</h2>
-                    <div class="profile-info">
-                        <div class="profile-card">
-                            <h3>Faculty Information</h3>
-                            <div class="info-row">
-                                <label>Name:</label>
-                                <span id="profileName">--</span>
-                            </div>
-                            <div class="info-row">
-                                <label>Employee ID:</label>
-                                <span id="profileId">--</span>
-                            </div>
-                            <div class="info-row">
-                                <label>Subjects:</label>
-                                <span id="profileSubjects">--</span>
-                            </div>
-                            <div class="info-row">
-                                <label>Login Time:</label>
-                                <span id="profileLoginTime">--</span>
-                            </div>
-                        </div>
-                        <div class="profile-actions">
-                            <button id="changePasswordBtn" class="btn btn--secondary">Change Password</button>
-                            <button id="updateProfileBtn" class="btn btn--primary">Update Profile</button>
+                        <div id="facultyReportResults" class="report-results">
+                            <p class="no-data">Select date range and report type to generate report.</p>
                         </div>
                     </div>
                 </div>
@@ -260,7 +547,121 @@
         </main>
     </div>
 
-    <!-- Success Modal -->
+    <!-- Add/Edit Student Modal -->
+    <div id="studentModal" class="modal hidden">
+        <div class="modal-overlay">
+            <div class="modal-content modal-large">
+                <h3 id="studentModalTitle">Add New Student</h3>
+                <form id="studentForm" class="modal-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="studentRollNo" class="form-label">Roll Number</label>
+                            <input type="text" id="studentRollNo" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="studentName" class="form-label">Full Name</label>
+                            <input type="text" id="studentName" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="studentClass" class="form-label">Class</label>
+                            <select id="studentClass" class="form-control" required>
+                                <option value="">Select Class</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="studentSection" class="form-label">Section</label>
+                            <select id="studentSection" class="form-control" required>
+                                <option value="">Select Section</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="studentDOB" class="form-label">Date of Birth</label>
+                            <input type="date" id="studentDOB" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="studentParentName" class="form-label">Parent Name</label>
+                            <input type="text" id="studentParentName" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="studentParentPhone" class="form-label">Parent Phone</label>
+                            <input type="tel" id="studentParentPhone" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="studentAddress" class="form-label">Address</label>
+                            <input type="text" id="studentAddress" class="form-control">
+                        </div>
+                    </div>
+                </form>
+                <div class="modal-actions">
+                    <button id="saveStudentBtn" class="btn btn--primary">Save Student</button>
+                    <button id="cancelStudentBtn" class="btn btn--outline">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Faculty Modal -->
+    <div id="facultyModal" class="modal hidden">
+        <div class="modal-overlay">
+            <div class="modal-content modal-large">
+                <h3 id="facultyModalTitle">Add New Faculty</h3>
+                <form id="facultyForm" class="modal-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="facultyEmpId" class="form-label">Employee ID</label>
+                            <input type="text" id="facultyEmpId" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="facultyNameModal" class="form-label">Full Name</label>
+                            <input type="text" id="facultyNameModal" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="facultyDepartment" class="form-label">Department</label>
+                            <select id="facultyDepartment" class="form-control" required>
+                                <option value="">Select Department</option>
+                                <option value="Mathematics">Mathematics</option>
+                                <option value="Sciences">Sciences</option>
+                                <option value="Languages">Languages</option>
+                                <option value="Social Studies">Social Studies</option>
+                                <option value="Arts">Arts</option>
+                                <option value="Physical Education">Physical Education</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="facultyEmail" class="form-label">Email</label>
+                            <input type="email" id="facultyEmail" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="facultyPhone" class="form-label">Phone</label>
+                            <input type="tel" id="facultyPhone" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="facultySubjects" class="form-label">Subjects (Ctrl+click for multiple)</label>
+                            <select id="facultySubjects" class="form-control" multiple required>
+                                <!-- Will be populated dynamically -->
+                            </select>
+                        </div>
+                    </div>
+                </form>
+                <div class="modal-actions">
+                    <button id="saveFacultyBtn" class="btn btn--primary">Save Faculty</button>
+                    <button id="cancelFacultyBtn" class="btn btn--outline">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success/Error Modals -->
     <div id="successModal" class="modal hidden">
         <div class="modal-overlay">
             <div class="modal-content">
@@ -271,7 +672,6 @@
         </div>
     </div>
 
-    <!-- Error Modal -->
     <div id="errorModal" class="modal hidden">
         <div class="modal-overlay">
             <div class="modal-content">
