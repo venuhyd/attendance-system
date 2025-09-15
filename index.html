@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>School Management System</title>
+    <title>VIVEK VARDHINI COLLEGE Management System</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -12,20 +12,20 @@
         <div class="login-container">
             <div class="login-card">
                 <div class="login-header">
-                    <h1>School Management System</h1>
+                    <h1>VIVEK VARDHINI COLLEGE Management System</h1>
                     <p>Please select your role to login</p>
                 </div>
                 
                 <div class="role-selector">
                     <button id="adminRoleBtn" class="role-btn active" data-role="admin">
-                        <div class="role-icon">🏫</div>
+                        <div class="role-icon">🏛️</div>
                         <div class="role-title">Administrator</div>
                         <div class="role-desc">Full system access</div>
                     </button>
                     <button id="facultyRoleBtn" class="role-btn" data-role="faculty">
                         <div class="role-icon">👨‍🏫</div>
                         <div class="role-title">Faculty</div>
-                        <div class="role-desc">Attendance marking</div>
+                        <div class="role-desc">Course management</div>
                     </button>
                 </div>
 
@@ -33,11 +33,11 @@
                     <div id="adminFields" class="role-fields">
                         <div class="form-group">
                             <label for="adminUsername" class="form-label">Username</label>
-                            <input type="text" id="adminUsername" class="form-control" placeholder="Enter admin username">
+                            <input type="text" id="adminUsername" class="form-control" placeholder="Enter username">
                         </div>
                         <div class="form-group">
                             <label for="adminPassword" class="form-label">Password</label>
-                            <input type="password" id="adminPassword" class="form-control" placeholder="Enter admin password">
+                            <input type="password" id="adminPassword" class="form-control" placeholder="Enter password">
                         </div>
                     </div>
                     
@@ -48,7 +48,7 @@
                         </div>
                         <div class="form-group">
                             <label for="employeeId" class="form-label">Employee ID</label>
-                            <input type="text" id="employeeId" class="form-control" placeholder="Enter your employee ID">
+                            <input type="text" id="employeeId" class="form-control" placeholder="Enter your employee ID (VVC001-VVC006)">
                         </div>
                     </div>
                     
@@ -58,7 +58,8 @@
                 <div class="demo-credentials">
                     <h4>Demo Credentials:</h4>
                     <p><strong>Admin:</strong> admin / admin123</p>
-                    <p><strong>Faculty:</strong> Any name + EMP001-EMP006</p>
+                    <p><strong>Principal:</strong> principal / principal123</p>
+                    <p><strong>Faculty:</strong> Any name + VVC001-VVC006</p>
                 </div>
             </div>
         </div>
@@ -68,7 +69,7 @@
     <div id="adminApp" class="screen hidden">
         <header class="app-header">
             <div class="header-content">
-                <h1 class="app-title">School Management System</h1>
+                <h1 class="app-title">VIVEK VARDHINI COLLEGE Management System</h1>
                 <div class="header-user">
                     <span id="adminWelcomeText">Welcome, Administrator</span>
                     <button id="adminLogoutBtn" class="btn btn--outline btn--sm">Logout</button>
@@ -81,8 +82,8 @@
                 <button class="nav-btn active" data-section="adminDashboard">Dashboard</button>
                 <button class="nav-btn" data-section="studentManagement">Students</button>
                 <button class="nav-btn" data-section="facultyManagement">Faculty</button>
-                <button class="nav-btn" data-section="subjectManagement">Subjects</button>
-                <button class="nav-btn" data-section="classManagement">Classes</button>
+                <button class="nav-btn" data-section="courseManagement">Courses</button>
+                <button class="nav-btn" data-section="departmentManagement">Departments</button>
                 <button class="nav-btn" data-section="attendanceReports">Reports</button>
                 <button class="nav-btn" data-section="systemSettings">Settings</button>
             </div>
@@ -92,7 +93,7 @@
             <!-- Admin Dashboard -->
             <section id="adminDashboard" class="content-section active">
                 <div class="container">
-                    <h2>Administrator Dashboard</h2>
+                    <h2>College Administration Dashboard</h2>
                     <div class="dashboard-stats">
                         <div class="stat-card">
                             <h3>Total Students</h3>
@@ -105,9 +106,9 @@
                             <p>Active faculty members</p>
                         </div>
                         <div class="stat-card">
-                            <h3>Total Classes</h3>
-                            <div class="stat-value" id="totalClassesCount">0</div>
-                            <p>Available classes</p>
+                            <h3>Total Departments</h3>
+                            <div class="stat-value" id="totalDepartmentsCount">0</div>
+                            <p>Academic departments</p>
                         </div>
                         <div class="stat-card">
                             <h3>Today's Attendance</h3>
@@ -139,11 +140,11 @@
                     
                     <div class="search-filter-bar">
                         <input type="text" id="studentSearchInput" class="form-control" placeholder="Search students...">
-                        <select id="classFilter" class="form-control">
-                            <option value="">All Classes</option>
+                        <select id="courseFilter" class="form-control">
+                            <option value="">All Courses</option>
                         </select>
-                        <select id="sectionFilter" class="form-control">
-                            <option value="">All Sections</option>
+                        <select id="semesterFilter" class="form-control">
+                            <option value="">All Semesters</option>
                         </select>
                     </div>
                     
@@ -153,8 +154,8 @@
                                 <tr>
                                     <th>Roll No</th>
                                     <th>Name</th>
-                                    <th>Class</th>
-                                    <th>Section</th>
+                                    <th>Course</th>
+                                    <th>Semester</th>
                                     <th>Parent Contact</th>
                                     <th>Actions</th>
                                 </tr>
@@ -190,6 +191,7 @@
                                 <tr>
                                     <th>Employee ID</th>
                                     <th>Name</th>
+                                    <th>Designation</th>
                                     <th>Department</th>
                                     <th>Subjects</th>
                                     <th>Contact</th>
@@ -204,58 +206,60 @@
                 </div>
             </section>
 
-            <!-- Subject Management -->
-            <section id="subjectManagement" class="content-section">
+            <!-- Course Management -->
+            <section id="courseManagement" class="content-section">
                 <div class="container">
                     <div class="section-header">
-                        <h2>Subject Management</h2>
+                        <h2>Course Management</h2>
                         <div class="section-actions">
-                            <button id="addSubjectBtn" class="btn btn--primary">Add Subject</button>
+                            <button id="addCourseBtn" class="btn btn--primary">Add Course</button>
                         </div>
                     </div>
                     
-                    <div id="subjectsTable" class="data-table-container">
+                    <div id="coursesTable" class="data-table-container">
                         <table class="data-table">
                             <thead>
                                 <tr>
-                                    <th>Subject Code</th>
-                                    <th>Subject Name</th>
-                                    <th>Category</th>
-                                    <th>Credits</th>
+                                    <th>Course Code</th>
+                                    <th>Course Name</th>
+                                    <th>Department</th>
+                                    <th>Duration</th>
+                                    <th>Enrolled Students</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
-                            <tbody id="subjectsTableBody">
-                                <!-- Subjects will be populated here -->
+                            <tbody id="coursesTableBody">
+                                <!-- Courses will be populated here -->
                             </tbody>
                         </table>
                     </div>
                 </div>
             </section>
 
-            <!-- Class Management -->
-            <section id="classManagement" class="content-section">
+            <!-- Department Management -->
+            <section id="departmentManagement" class="content-section">
                 <div class="container">
                     <div class="section-header">
-                        <h2>Class Management</h2>
+                        <h2>Department Management</h2>
                         <div class="section-actions">
-                            <button id="addClassBtn" class="btn btn--primary">Add Class</button>
+                            <button id="addDepartmentBtn" class="btn btn--primary">Add Department</button>
                         </div>
                     </div>
                     
-                    <div id="classesTable" class="data-table-container">
+                    <div id="departmentsTable" class="data-table-container">
                         <table class="data-table">
                             <thead>
                                 <tr>
-                                    <th>Class ID</th>
-                                    <th>Class Name</th>
-                                    <th>Sections</th>
+                                    <th>Department Code</th>
+                                    <th>Department Name</th>
+                                    <th>Head of Department</th>
+                                    <th>Faculty Count</th>
                                     <th>Student Count</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
-                            <tbody id="classesTableBody">
-                                <!-- Classes will be populated here -->
+                            <tbody id="departmentsTableBody">
+                                <!-- Departments will be populated here -->
                             </tbody>
                         </table>
                     </div>
@@ -278,9 +282,9 @@
                                     <input type="date" id="reportEndDate" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label for="reportClass" class="form-label">Class</label>
-                                    <select id="reportClass" class="form-control">
-                                        <option value="">All Classes</option>
+                                    <label for="reportCourse" class="form-label">Course</label>
+                                    <select id="reportCourse" class="form-control">
+                                        <option value="">All Courses</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -311,15 +315,15 @@
                             </div>
                         </div>
                         <div class="setting-card">
-                            <h3>School Timings</h3>
+                            <h3>College Timings</h3>
                             <div class="setting-content">
                                 <div class="form-group">
-                                    <label class="form-label">School Start Time</label>
+                                    <label class="form-label">College Start Time</label>
                                     <input type="time" class="form-control" value="09:00">
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-label">School End Time</label>
-                                    <input type="time" class="form-control" value="15:00">
+                                    <label class="form-label">College End Time</label>
+                                    <input type="time" class="form-control" value="15:10">
                                 </div>
                             </div>
                         </div>
@@ -349,7 +353,7 @@
     <div id="facultyApp" class="screen hidden">
         <header class="app-header">
             <div class="header-content">
-                <h1 class="app-title">Faculty Portal</h1>
+                <h1 class="app-title">Faculty Portal - VIVEK VARDHINI COLLEGE</h1>
                 <div class="header-user">
                     <span id="facultyWelcomeText">Welcome, Faculty</span>
                     <button id="facultyLogoutBtn" class="btn btn--outline btn--sm">Logout</button>
@@ -415,15 +419,15 @@
                                     <input type="date" id="attendanceDate" class="form-control" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="attendanceClass" class="form-label">Class</label>
-                                    <select id="attendanceClass" class="form-control" required>
-                                        <option value="">Select Class</option>
+                                    <label for="attendanceCourse" class="form-label">Course</label>
+                                    <select id="attendanceCourse" class="form-control" required>
+                                        <option value="">Select Course</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="attendanceSection" class="form-label">Section</label>
-                                    <select id="attendanceSection" class="form-control" required>
-                                        <option value="">Select Section</option>
+                                    <label for="attendanceSemester" class="form-label">Semester</label>
+                                    <select id="attendanceSemester" class="form-control" required>
+                                        <option value="">Select Semester</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -445,8 +449,8 @@
                         <div id="studentAttendance" class="student-attendance hidden">
                             <div class="attendance-header">
                                 <div class="attendance-info">
-                                    <span id="attendanceTitle">Mathematics - Period 1</span>
-                                    <span id="attendanceDate2">September 15, 2025</span>
+                                    <span id="attendanceTitle">Subject - Course - Period</span>
+                                    <span id="attendanceDate2">Date</span>
                                 </div>
                                 <div class="bulk-actions">
                                     <button id="markAllPresentBtn" class="btn btn--secondary btn--sm">Mark All Present</button>
@@ -493,9 +497,9 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="filterClass" class="form-label">Class</label>
-                                <select id="filterClass" class="form-control">
-                                    <option value="">All Classes</option>
+                                <label for="filterCourse" class="form-label">Course</label>
+                                <select id="filterCourse" class="form-control">
+                                    <option value="">All Courses</option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -565,15 +569,15 @@
                     </div>
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="studentClass" class="form-label">Class</label>
-                            <select id="studentClass" class="form-control" required>
-                                <option value="">Select Class</option>
+                            <label for="studentCourse" class="form-label">Course</label>
+                            <select id="studentCourse" class="form-control" required>
+                                <option value="">Select Course</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="studentSection" class="form-label">Section</label>
-                            <select id="studentSection" class="form-control" required>
-                                <option value="">Select Section</option>
+                            <label for="studentSemester" class="form-label">Semester</label>
+                            <select id="studentSemester" class="form-control" required>
+                                <option value="">Select Semester</option>
                             </select>
                         </div>
                     </div>
@@ -624,27 +628,32 @@
                     </div>
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="facultyDepartment" class="form-label">Department</label>
-                            <select id="facultyDepartment" class="form-control" required>
-                                <option value="">Select Department</option>
-                                <option value="Mathematics">Mathematics</option>
-                                <option value="Sciences">Sciences</option>
-                                <option value="Languages">Languages</option>
-                                <option value="Social Studies">Social Studies</option>
-                                <option value="Arts">Arts</option>
-                                <option value="Physical Education">Physical Education</option>
+                            <label for="facultyDesignation" class="form-label">Designation</label>
+                            <select id="facultyDesignation" class="form-control" required>
+                                <option value="">Select Designation</option>
+                                <option value="Professor">Professor</option>
+                                <option value="Associate Professor">Associate Professor</option>
+                                <option value="Assistant Professor">Assistant Professor</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="facultyEmail" class="form-label">Email</label>
-                            <input type="email" id="facultyEmail" class="form-control" required>
+                            <label for="facultyDepartment" class="form-label">Department</label>
+                            <select id="facultyDepartment" class="form-control" required>
+                                <option value="">Select Department</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
+                            <label for="facultyEmail" class="form-label">Email</label>
+                            <input type="email" id="facultyEmail" class="form-control" required>
+                        </div>
+                        <div class="form-group">
                             <label for="facultyPhone" class="form-label">Phone</label>
                             <input type="tel" id="facultyPhone" class="form-control" required>
                         </div>
+                    </div>
+                    <div class="form-row">
                         <div class="form-group">
                             <label for="facultySubjects" class="form-label">Subjects (Ctrl+click for multiple)</label>
                             <select id="facultySubjects" class="form-control" multiple required>
