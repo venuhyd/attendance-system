@@ -757,7 +757,7 @@ select.form-control {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, var(--color-bg-1), var(--color-bg-3));
+    background: var(--color-bg-1);
     padding: var(--space-16);
 }
 
@@ -767,7 +767,7 @@ select.form-control {
     box-shadow: var(--shadow-lg);
     padding: var(--space-32);
     width: 100%;
-    max-width: 400px;
+    max-width: 500px;
     border: 1px solid var(--color-card-border);
 }
 
@@ -786,10 +786,85 @@ select.form-control {
     margin: 0;
 }
 
+/* Role Selection */
+.role-selector {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-16);
+    margin-bottom: var(--space-24);
+}
+
+.role-btn {
+    padding: var(--space-20);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-base);
+    background: var(--color-surface);
+    cursor: pointer;
+    text-align: center;
+    transition: all var(--duration-normal) var(--ease-standard);
+}
+
+.role-btn:hover {
+    border-color: var(--color-primary);
+    background: var(--color-bg-1);
+}
+
+.role-btn.active {
+    border-color: var(--color-primary);
+    background: var(--color-bg-1);
+    box-shadow: var(--focus-ring);
+}
+
+.role-icon {
+    font-size: var(--font-size-4xl);
+    margin-bottom: var(--space-8);
+}
+
+.role-title {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
+    margin-bottom: var(--space-4);
+}
+
+.role-desc {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+}
+
 .login-form {
     display: flex;
     flex-direction: column;
     gap: var(--space-16);
+}
+
+.role-fields {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-16);
+}
+
+.role-fields.hidden {
+    display: none;
+}
+
+.demo-credentials {
+    margin-top: var(--space-24);
+    padding: var(--space-16);
+    background: var(--color-bg-2);
+    border-radius: var(--radius-base);
+    border: 1px solid var(--color-border);
+}
+
+.demo-credentials h4 {
+    margin-bottom: var(--space-8);
+    color: var(--color-text);
+}
+
+.demo-credentials p {
+    margin: var(--space-4) 0;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
 }
 
 /* App Header */
@@ -822,7 +897,8 @@ select.form-control {
     gap: var(--space-16);
 }
 
-#welcomeText {
+#adminWelcomeText,
+#facultyWelcomeText {
     font-size: var(--font-size-md);
     font-weight: var(--font-weight-medium);
 }
@@ -887,6 +963,22 @@ select.form-control {
     padding: 0 var(--space-16);
 }
 
+/* Section Headers */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-24);
+    flex-wrap: wrap;
+    gap: var(--space-16);
+}
+
+.section-actions {
+    display: flex;
+    gap: var(--space-12);
+    flex-wrap: wrap;
+}
+
 /* Dashboard */
 .dashboard-stats {
     display: grid;
@@ -902,6 +994,11 @@ select.form-control {
     border: 1px solid var(--color-card-border);
     box-shadow: var(--shadow-sm);
     text-align: center;
+    transition: box-shadow var(--duration-normal) var(--ease-standard);
+}
+
+.stat-card:hover {
+    box-shadow: var(--shadow-md);
 }
 
 .stat-card h3 {
@@ -936,6 +1033,73 @@ select.form-control {
     display: flex;
     gap: var(--space-12);
     flex-wrap: wrap;
+}
+
+/* Search and Filter Bar */
+.search-filter-bar {
+    display: flex;
+    gap: var(--space-16);
+    margin-bottom: var(--space-24);
+    flex-wrap: wrap;
+    align-items: end;
+}
+
+.search-filter-bar .form-control {
+    flex: 1;
+    min-width: 200px;
+}
+
+/* Data Tables */
+.data-table-container {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-card-border);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.data-table th,
+.data-table td {
+    padding: var(--space-12) var(--space-16);
+    text-align: left;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.data-table th {
+    background: var(--color-bg-1);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.data-table tbody tr:hover {
+    background: var(--color-bg-2);
+}
+
+.data-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Action Buttons in Tables */
+.table-actions {
+    display: flex;
+    gap: var(--space-8);
+    flex-wrap: wrap;
+}
+
+.btn-icon {
+    padding: var(--space-6);
+    min-width: auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Form Layouts */
@@ -1038,7 +1202,7 @@ select.form-control {
 
 .attendance-toggle {
     display: flex;
-    gap: var(--space-8);
+    gap: var(--space-12);
 }
 
 .attendance-radio {
@@ -1075,6 +1239,7 @@ select.form-control {
     padding: var(--space-24);
     border: 1px solid var(--color-card-border);
     box-shadow: var(--shadow-sm);
+    min-height: 300px;
 }
 
 .record-item {
@@ -1126,29 +1291,6 @@ select.form-control {
     color: var(--color-error);
 }
 
-.record-students {
-    max-height: 200px;
-    overflow-y: auto;
-    margin-top: var(--space-12);
-}
-
-.student-status {
-    display: flex;
-    justify-content: space-between;
-    padding: var(--space-4) 0;
-    font-size: var(--font-size-sm);
-}
-
-.status-present {
-    color: var(--color-success);
-    font-weight: var(--font-weight-medium);
-}
-
-.status-absent {
-    color: var(--color-error);
-    font-weight: var(--font-weight-medium);
-}
-
 .no-records,
 .no-data {
     text-align: center;
@@ -1194,20 +1336,14 @@ select.form-control {
     font-weight: var(--font-weight-semibold);
 }
 
-.report-actions {
-    margin-top: var(--space-24);
-    text-align: center;
-}
-
-/* Profile */
-.profile-info {
+/* Settings */
+.settings-grid {
     display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: var(--space-32);
-    align-items: start;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-24);
 }
 
-.profile-card {
+.setting-card {
     background: var(--color-surface);
     border-radius: var(--radius-lg);
     padding: var(--space-24);
@@ -1215,35 +1351,29 @@ select.form-control {
     box-shadow: var(--shadow-sm);
 }
 
-.profile-card h3 {
+.setting-card h3 {
     margin-bottom: var(--space-16);
     color: var(--color-primary);
 }
 
-.info-row {
-    display: flex;
-    justify-content: space-between;
-    padding: var(--space-12) 0;
-    border-bottom: 1px solid var(--color-border);
-}
-
-.info-row:last-child {
-    border-bottom: none;
-}
-
-.info-row label {
-    font-weight: var(--font-weight-medium);
-    color: var(--color-text-secondary);
-}
-
-.info-row span {
-    color: var(--color-text);
-}
-
-.profile-actions {
+.setting-content {
     display: flex;
     flex-direction: column;
     gap: var(--space-12);
+}
+
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: var(--space-8);
+    cursor: pointer;
+    padding: var(--space-4);
 }
 
 /* Modals */
@@ -1273,6 +1403,7 @@ select.form-control {
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: var(--space-16);
 }
 
 .modal-content {
@@ -1280,9 +1411,14 @@ select.form-control {
     border-radius: var(--radius-lg);
     padding: var(--space-24);
     max-width: 400px;
-    width: 90%;
+    width: 100%;
     box-shadow: var(--shadow-lg);
-    text-align: center;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-large {
+    max-width: 600px;
 }
 
 .modal-content h3 {
@@ -1290,9 +1426,39 @@ select.form-control {
     color: var(--color-primary);
 }
 
-.modal-content p {
-    margin-bottom: var(--space-16);
-    color: var(--color-text-secondary);
+.modal-form {
+    margin-bottom: var(--space-24);
+}
+
+.modal-actions {
+    display: flex;
+    gap: var(--space-12);
+    justify-content: flex-end;
+}
+
+/* Status badges */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-4) var(--space-8);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+}
+
+.badge-success {
+    background: rgba(var(--color-success-rgb), 0.15);
+    color: var(--color-success);
+}
+
+.badge-error {
+    background: rgba(var(--color-error-rgb), 0.15);
+    color: var(--color-error);
+}
+
+.badge-warning {
+    background: rgba(var(--color-warning-rgb), 0.15);
+    color: var(--color-warning);
 }
 
 /* Responsive Design */
@@ -1304,7 +1470,8 @@ select.form-control {
     }
 
     .nav-container {
-        justify-content: center;
+        justify-content: flex-start;
+        padding-bottom: var(--space-8);
     }
 
     .dashboard-stats {
@@ -1315,8 +1482,14 @@ select.form-control {
         grid-template-columns: 1fr;
     }
 
-    .filter-row {
+    .filter-row,
+    .search-filter-bar {
         flex-direction: column;
+    }
+
+    .section-header {
+        flex-direction: column;
+        align-items: stretch;
     }
 
     .attendance-header {
@@ -1332,23 +1505,35 @@ select.form-control {
         justify-content: center;
     }
 
-    .profile-info {
+    .role-selector {
         grid-template-columns: 1fr;
     }
 
-    .student-table {
-        font-size: var(--font-size-sm);
+    .data-table-container {
+        overflow-x: auto;
     }
 
-    .student-table th,
-    .student-table td {
-        padding: var(--space-8) var(--space-12);
+    .data-table {
+        min-width: 600px;
+    }
+
+    .table-actions {
+        flex-direction: column;
+    }
+
+    .modal-actions {
+        flex-direction: column;
+    }
+
+    .settings-grid {
+        grid-template-columns: 1fr;
     }
 }
 
 @media (max-width: 480px) {
     .login-card {
         padding: var(--space-24);
+        margin: var(--space-16);
     }
 
     .container {
@@ -1357,22 +1542,55 @@ select.form-control {
 
     .attendance-form-container,
     .records-container,
-    .reports-section {
+    .reports-section,
+    .setting-card {
         padding: var(--space-16);
     }
 
     .student-table th,
-    .student-table td {
-        padding: var(--space-6) var(--space-8);
+    .student-table td,
+    .data-table th,
+    .data-table td {
+        padding: var(--space-8) var(--space-12);
     }
 
     .attendance-toggle {
         flex-direction: column;
         gap: var(--space-4);
     }
+
+    .stat-card {
+        padding: var(--space-16);
+    }
+
+    .modal-content {
+        padding: var(--space-16);
+    }
 }
 
-/* Status indicators and utility classes */
+/* Loading states */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--color-border);
+    border-radius: 50%;
+    border-top-color: var(--color-primary);
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Utility classes */
 .text-success {
     color: var(--color-success);
 }
@@ -1397,24 +1615,10 @@ select.form-control {
     font-weight: var(--font-weight-medium);
 }
 
-/* Loading states */
-.loading {
-    opacity: 0.6;
-    pointer-events: none;
+.mt-16 {
+    margin-top: var(--space-16);
 }
 
-.spinner {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    border: 2px solid var(--color-border);
-    border-radius: 50%;
-    border-top-color: var(--color-primary);
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
+.mb-16 {
+    margin-bottom: var(--space-16);
 }
