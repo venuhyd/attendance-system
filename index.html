@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="loginScreen" class="screen">
+        <div class="login-container">
+            <div class="login-card">
+                <div class="login-header">
+                    <h1>Attendance Management System</h1>
+                    <p>Faculty Login</p>
+                </div>
+                <form id="loginForm" class="login-form">
+                    <div class="form-group">
+                        <label for="facultyName" class="form-label">Faculty Name</label>
+                        <input type="text" id="facultyName" class="form-control" required placeholder="Enter your full name">
+                    </div>
+                    <div class="form-group">
+                        <label for="employeeId" class="form-label">Employee ID</label>
+                        <input type="text" id="employeeId" class="form-control" required placeholder="Enter your employee ID">
+                    </div>
+                    <button type="submit" class="btn btn--primary btn--full-width">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard/Main App -->
+    <div id="mainApp" class="screen hidden">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <h1 class="app-title">Attendance Management</h1>
+                <div class="header-user">
+                    <span id="welcomeText">Welcome, Faculty</span>
+                    <button id="logoutBtn" class="btn btn--outline btn--sm">Logout</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="app-nav">
+            <div class="nav-container">
+                <button class="nav-btn active" data-section="dashboard">Dashboard</button>
+                <button class="nav-btn" data-section="markAttendance">Mark Attendance</button>
+                <button class="nav-btn" data-section="viewRecords">View Records</button>
+                <button class="nav-btn" data-section="reports">Reports</button>
+                <button class="nav-btn" data-section="profile">Profile</button>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="app-main">
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="content-section active">
+                <div class="container">
+                    <h2>Dashboard</h2>
+                    <div class="dashboard-stats">
+                        <div class="stat-card">
+                            <h3>Today's Classes</h3>
+                            <div class="stat-value" id="todayClasses">0</div>
+                            <p>Classes scheduled</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Attendance Marked</h3>
+                            <div class="stat-value" id="attendanceMarked">0</div>
+                            <p>Classes completed</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Total Students</h3>
+                            <div class="stat-value" id="totalStudents">30</div>
+                            <p>In your classes</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Average Attendance</h3>
+                            <div class="stat-value" id="avgAttendance">--</div>
+                            <p>This week</p>
+                        </div>
+                    </div>
+                    <div class="quick-actions">
+                        <h3>Quick Actions</h3>
+                        <div class="action-buttons">
+                            <button class="btn btn--primary" data-section="markAttendance">Mark Attendance</button>
+                            <button class="btn btn--secondary" data-section="viewRecords">View Records</button>
+                            <button class="btn btn--outline" data-section="reports">Generate Report</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Mark Attendance Section -->
+            <section id="markAttendance" class="content-section">
+                <div class="container">
+                    <h2>Mark Attendance</h2>
+                    <div class="attendance-form-container">
+                        <form id="attendanceSetupForm" class="attendance-setup">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="attendanceDate" class="form-label">Date</label>
+                                    <input type="date" id="attendanceDate" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="subject" class="form-label">Subject</label>
+                                    <select id="subject" class="form-control" required>
+                                        <option value="">Select Subject</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="period" class="form-label">Period</label>
+                                    <select id="period" class="form-control" required>
+                                        <option value="">Select Period</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="button" id="loadStudentsBtn" class="btn btn--primary">Load Student List</button>
+                        </form>
+
+                        <div id="studentAttendance" class="student-attendance hidden">
+                            <div class="attendance-header">
+                                <div class="attendance-info">
+                                    <span id="attendanceTitle">Mathematics - Period 1</span>
+                                    <span id="attendanceDate2">September 15, 2025</span>
+                                </div>
+                                <div class="bulk-actions">
+                                    <button id="markAllPresentBtn" class="btn btn--secondary btn--sm">Mark All Present</button>
+                                    <button id="markAllAbsentBtn" class="btn btn--outline btn--sm">Mark All Absent</button>
+                                </div>
+                            </div>
+                            <div class="student-list">
+                                <table class="student-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Roll No.</th>
+                                            <th>Student Name</th>
+                                            <th>Attendance</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="studentTableBody">
+                                        <!-- Students will be populated here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="attendance-actions">
+                                <button id="saveAttendanceBtn" class="btn btn--primary">Save Attendance</button>
+                                <button id="cancelAttendanceBtn" class="btn btn--outline">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- View Records Section -->
+            <section id="viewRecords" class="content-section">
+                <div class="container">
+                    <h2>Attendance Records</h2>
+                    <div class="records-filter">
+                        <div class="filter-row">
+                            <div class="form-group">
+                                <label for="filterDate" class="form-label">Date</label>
+                                <input type="date" id="filterDate" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="filterSubject" class="form-label">Subject</label>
+                                <select id="filterSubject" class="form-control">
+                                    <option value="">All Subjects</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="filterPeriod" class="form-label">Period</label>
+                                <select id="filterPeriod" class="form-control">
+                                    <option value="">All Periods</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <button id="filterRecordsBtn" class="btn btn--primary">Filter</button>
+                                <button id="clearFiltersBtn" class="btn btn--outline">Clear</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="recordsContainer" class="records-container">
+                        <p class="no-records">No attendance records found. Please adjust your filters or mark some attendance first.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Reports Section -->
+            <section id="reports" class="content-section">
+                <div class="container">
+                    <h2>Reports</h2>
+                    <div class="reports-section">
+                        <div class="report-controls">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="reportStartDate" class="form-label">Start Date</label>
+                                    <input type="date" id="reportStartDate" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="reportEndDate" class="form-label">End Date</label>
+                                    <input type="date" id="reportEndDate" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="reportType" class="form-label">Report Type</label>
+                                    <select id="reportType" class="form-control">
+                                        <option value="summary">Attendance Summary</option>
+                                        <option value="subject">Subject-wise Report</option>
+                                        <option value="student">Student-wise Report</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <button id="generateReportBtn" class="btn btn--primary">Generate Report</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="reportResults" class="report-results">
+                            <p class="no-data">Select date range and report type, then click "Generate Report" to view results.</p>
+                        </div>
+                        <div id="reportActions" class="report-actions hidden">
+                            <button id="exportReportBtn" class="btn btn--secondary">Export as CSV</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Profile Section -->
+            <section id="profile" class="content-section">
+                <div class="container">
+                    <h2>Profile Settings</h2>
+                    <div class="profile-info">
+                        <div class="profile-card">
+                            <h3>Faculty Information</h3>
+                            <div class="info-row">
+                                <label>Name:</label>
+                                <span id="profileName">--</span>
+                            </div>
+                            <div class="info-row">
+                                <label>Employee ID:</label>
+                                <span id="profileId">--</span>
+                            </div>
+                            <div class="info-row">
+                                <label>Subjects:</label>
+                                <span id="profileSubjects">--</span>
+                            </div>
+                            <div class="info-row">
+                                <label>Login Time:</label>
+                                <span id="profileLoginTime">--</span>
+                            </div>
+                        </div>
+                        <div class="profile-actions">
+                            <button id="changePasswordBtn" class="btn btn--secondary">Change Password</button>
+                            <button id="updateProfileBtn" class="btn btn--primary">Update Profile</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal hidden">
+        <div class="modal-overlay">
+            <div class="modal-content">
+                <h3>Success!</h3>
+                <p id="successMessage">Operation completed successfully.</p>
+                <button id="successModalClose" class="btn btn--primary">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div id="errorModal" class="modal hidden">
+        <div class="modal-overlay">
+            <div class="modal-content">
+                <h3>Error</h3>
+                <p id="errorMessage">An error occurred.</p>
+                <button id="errorModalClose" class="btn btn--primary">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
