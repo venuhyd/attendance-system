@@ -738,7 +738,7 @@ select.form-control {
 }
 
 /* END PERPLEXITY DESIGN SYSTEM */
-/* Application-specific styles */
+/* Application-specific styles for VIVEK VARDHINI DEGREE COLLEGE */
 
 /* Layout and Structure */
 .screen {
@@ -767,7 +767,7 @@ select.form-control {
     box-shadow: var(--shadow-lg);
     padding: var(--space-32);
     width: 100%;
-    max-width: 500px;
+    max-width: 520px;
     border: 1px solid var(--color-card-border);
 }
 
@@ -783,9 +783,35 @@ select.form-control {
     font-weight: var(--font-weight-bold);
 }
 
+.affiliation {
+    color: var(--color-text);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-medium);
+    margin-bottom: var(--space-12);
+    padding: var(--space-8) var(--space-16);
+    background: var(--color-bg-3);
+    border-radius: var(--radius-base);
+    border: 1px solid var(--color-border);
+}
+
 .login-header p {
     color: var(--color-text-secondary);
     margin: 0;
+}
+
+.college-info {
+    margin-top: var(--space-24);
+    padding: var(--space-16);
+    background: var(--color-bg-4);
+    border-radius: var(--radius-base);
+    border: 1px solid var(--color-border);
+    text-align: center;
+}
+
+.college-info p {
+    margin: var(--space-4) 0;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
 }
 
 /* Role Selection */
@@ -886,11 +912,24 @@ select.form-control {
     padding: 0 var(--space-16);
 }
 
+.header-brand {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+}
+
 .app-title {
     font-size: var(--font-size-2xl);
     font-weight: var(--font-weight-bold);
     margin: 0;
     color: var(--color-btn-primary-text);
+}
+
+.header-affiliation {
+    font-size: var(--font-size-sm);
+    color: rgba(var(--color-btn-primary-text), 0.9);
+    margin: 0;
+    font-weight: var(--font-weight-medium);
 }
 
 .header-user {
@@ -1021,6 +1060,69 @@ select.form-control {
     color: var(--color-text-secondary);
     font-size: var(--font-size-sm);
     margin: 0;
+}
+
+/* Course Overview */
+.course-overview {
+    margin: var(--space-32) 0;
+    background: var(--color-surface);
+    padding: var(--space-24);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-card-border);
+    box-shadow: var(--shadow-sm);
+}
+
+.course-overview h3 {
+    margin-bottom: var(--space-20);
+    color: var(--color-primary);
+    font-size: var(--font-size-2xl);
+}
+
+.course-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-20);
+}
+
+.course-card {
+    background: var(--color-background);
+    padding: var(--space-20);
+    border-radius: var(--radius-base);
+    border: 1px solid var(--color-border);
+    position: relative;
+    transition: all var(--duration-normal) var(--ease-standard);
+}
+
+.course-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.course-card h4 {
+    color: var(--color-text);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-8);
+}
+
+.course-card p {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-12);
+}
+
+.duration {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-4) var(--space-12);
+    background: var(--color-primary);
+    color: var(--color-btn-primary-text);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    border-radius: var(--radius-full);
+    position: absolute;
+    top: var(--space-16);
+    right: var(--space-16);
 }
 
 .quick-actions {
@@ -1420,7 +1522,7 @@ select.form-control {
 }
 
 .modal-large {
-    max-width: 600px;
+    max-width: 700px;
 }
 
 .modal-content h3 {
@@ -1430,6 +1532,11 @@ select.form-control {
 
 .modal-form {
     margin-bottom: var(--space-24);
+}
+
+.modal-form textarea {
+    resize: vertical;
+    min-height: 80px;
 }
 
 .modal-actions {
@@ -1473,11 +1580,28 @@ select.form-control {
     color: var(--color-info);
 }
 
+/* Specialization indicators */
+.specialization-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-2) var(--space-8);
+    background: var(--color-bg-5);
+    color: var(--color-text);
+    font-size: var(--font-size-xs);
+    border-radius: var(--radius-sm);
+    margin-left: var(--space-4);
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .header-content {
         flex-direction: column;
         gap: var(--space-12);
+        text-align: center;
+    }
+
+    .header-brand {
+        align-items: center;
         text-align: center;
     }
 
@@ -1487,6 +1611,10 @@ select.form-control {
     }
 
     .dashboard-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .course-grid {
         grid-template-columns: 1fr;
     }
 
@@ -1576,6 +1704,14 @@ select.form-control {
     }
 
     .modal-content {
+        padding: var(--space-16);
+    }
+
+    .course-card {
+        padding: var(--space-16);
+    }
+
+    .course-overview {
         padding: var(--space-16);
     }
 }

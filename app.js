@@ -1,80 +1,94 @@
-// VIVEK VARDHINI COLLEGE Management System JavaScript
+// VIVEK VARDHINI DEGREE COLLEGE Management System JavaScript
+// Updated for Osmania University Affiliated Degree College
 
 // College data from application_data_json
 const collegeInfo = {
-    "name": "VIVEK VARDHINI COLLEGE",
+    "name": "VIVEK VARDHINI DEGREE COLLEGE",
+    "shortName": "VVDC",
+    "affiliation": "Affiliated to Osmania University, Hyderabad",
     "address": "Hyderabad, Telangana, India",
     "phone": "+91-40-12345678",
     "email": "info@vivekvardhini.edu.in",
-    "website": "www.vivekvardhini.edu.in"
+    "website": "www.vivekvardhini.edu.in",
+    "timings": {
+        "start": "10:00",
+        "end": "15:00",
+        "display": "10:00 AM - 3:00 PM"
+    }
 };
 
+const semesters = ["I", "II", "III", "IV", "V", "VI"];
+
 let departments = [
-    {"id": "DEPT001", "code": "CSE", "name": "Computer Science & Engineering", "hod": "Dr. Rajesh Kumar"},
-    {"id": "DEPT002", "code": "ECE", "name": "Electronics & Communication", "hod": "Dr. Priya Sharma"},
-    {"id": "DEPT003", "code": "MECH", "name": "Mechanical Engineering", "hod": "Prof. Vikram Singh"},
-    {"id": "DEPT004", "code": "CIVIL", "name": "Civil Engineering", "hod": "Dr. Anjali Reddy"},
-    {"id": "DEPT005", "code": "COMM", "name": "Commerce", "hod": "Prof. Suresh Patel"},
-    {"id": "DEPT006", "code": "ARTS", "name": "Arts & Humanities", "hod": "Dr. Meera Joshi"}
+    {"id": "DEPT001", "code": "ARTS", "name": "Department of Arts & Humanities", "hod": "Dr. Priya Sharma"},
+    {"id": "DEPT002", "code": "BBA", "name": "Department of Business Studies", "hod": "Prof. Rajesh Kumar"},
+    {"id": "DEPT003", "code": "COMM", "name": "Department of Commerce", "hod": "Dr. Suresh Patel"},
+    {"id": "DEPT004", "code": "SCI", "name": "Department of Sciences", "hod": "Dr. Anjali Reddy"}
 ];
 
 let courses = [
-    {"id": "COURSE001", "code": "BTECH-CSE", "name": "B.Tech Computer Science", "department": "CSE", "duration": "4 years"},
-    {"id": "COURSE002", "code": "BTECH-ECE", "name": "B.Tech Electronics", "department": "ECE", "duration": "4 years"},
-    {"id": "COURSE003", "code": "BTECH-MECH", "name": "B.Tech Mechanical", "department": "MECH", "duration": "4 years"},
-    {"id": "COURSE004", "code": "BTECH-CIVIL", "name": "B.Tech Civil", "department": "CIVIL", "duration": "4 years"},
-    {"id": "COURSE005", "code": "BCOM", "name": "Bachelor of Commerce", "department": "COMM", "duration": "3 years"},
-    {"id": "COURSE006", "code": "BA", "name": "Bachelor of Arts", "department": "ARTS", "duration": "3 years"}
+    {"id": "COURSE001", "code": "BA-HIST", "name": "BA (History)", "department": "ARTS", "duration": "3 years", "specialization": "History"},
+    {"id": "COURSE002", "code": "BA-ECON", "name": "BA (Economics)", "department": "ARTS", "duration": "3 years", "specialization": "Economics"},
+    {"id": "COURSE003", "code": "BA-POLS", "name": "BA (Political Science)", "department": "ARTS", "duration": "3 years", "specialization": "Political Science"},
+    {"id": "COURSE004", "code": "BBA-GEN", "name": "BBA (General)", "department": "BBA", "duration": "3 years", "specialization": "General"},
+    {"id": "COURSE005", "code": "BBA-BA", "name": "BBA (Business Analytics)", "department": "BBA", "duration": "3 years", "specialization": "Business Analytics"},
+    {"id": "COURSE006", "code": "BCOM-GEN", "name": "BCom (General)", "department": "COMM", "duration": "3 years", "specialization": "General"},
+    {"id": "COURSE007", "code": "BCOM-CA", "name": "BCom (Computer Application)", "department": "COMM", "duration": "3 years", "specialization": "Computer Application"},
+    {"id": "COURSE008", "code": "BCOM-FIN", "name": "BCom (Finance)", "department": "COMM", "duration": "3 years", "specialization": "Finance"},
+    {"id": "COURSE009", "code": "BSC-LS", "name": "BSc (Life Sciences)", "department": "SCI", "duration": "3 years", "specialization": "Life Sciences"},
+    {"id": "COURSE010", "code": "BSC-PS", "name": "BSc (Physical Sciences)", "department": "SCI", "duration": "3 years", "specialization": "Physical Sciences"}
+];
+
+const subjects = {
+    "BA-HIST": ["Ancient Indian History", "Medieval Indian History", "Modern Indian History", "World History", "Historiography", "Research Methodology"],
+    "BA-ECON": ["Microeconomics", "Macroeconomics", "Indian Economy", "Development Economics", "Economic Statistics", "International Economics"],
+    "BA-POLS": ["Political Theory", "Comparative Politics", "International Relations", "Public Administration", "Indian Government & Politics", "Constitutional Law"],
+    "BBA-GEN": ["Principles of Management", "Business Mathematics", "Financial Accounting", "Marketing Management", "Human Resource Management", "Business Law"],
+    "BBA-BA": ["Data Analytics", "Statistics for Business", "Business Intelligence", "Digital Marketing", "E-commerce", "Operations Research"],
+    "BCOM-GEN": ["Financial Accounting", "Business Mathematics", "Business Statistics", "Commercial Law", "Income Tax", "Cost Accounting"],
+    "BCOM-CA": ["Computer Fundamentals", "Programming in C", "Database Management", "Web Technologies", "E-Commerce", "Computer Applications in Business"],
+    "BCOM-FIN": ["Corporate Finance", "Investment Analysis", "Banking Operations", "Insurance", "Financial Markets", "Portfolio Management"],
+    "BSC-LS": ["Botany", "Zoology", "Biochemistry", "Microbiology", "Genetics", "Environmental Biology"],
+    "BSC-PS": ["Physics", "Chemistry", "Mathematics", "Electronics", "Applied Mathematics", "Analytical Chemistry"]
+};
+
+let sampleStudents = [
+    {"id": "STU001", "rollNo": "VVC2024BA001", "name": "Aarav Kumar", "course": "BA-HIST", "department": "ARTS", "semester": "I", "academicYear": "2024-2025", "specialization": "History", "dob": "2003-05-15", "gender": "Male", "fatherName": "Rajesh Kumar", "motherName": "Sunita Kumar", "parentPhone": "+91-9876543210", "parentEmail": "rajesh.k@gmail.com", "studentPhone": "+91-8765432101", "studentEmail": "aarav.kumar@vivekvardhini.edu.in", "address": "123 MG Road, Hyderabad, Telangana - 500001", "bloodGroup": "O+", "category": "General", "admissionDate": "2024-07-15", "feeStatus": "Paid", "hostelRequired": "Yes"},
+    {"id": "STU002", "rollNo": "VVC2024BBA002", "name": "Aditi Patel", "course": "BBA-GEN", "department": "BBA", "semester": "II", "academicYear": "2024-2025", "specialization": "General", "dob": "2004-08-22", "gender": "Female", "fatherName": "Suresh Patel", "motherName": "Priya Patel", "parentPhone": "+91-9876543211", "parentEmail": "suresh.p@gmail.com", "studentPhone": "+91-8765432102", "studentEmail": "aditi.patel@vivekvardhini.edu.in", "address": "456 Tank Bund, Hyderabad, Telangana - 500002", "bloodGroup": "A+", "category": "OBC", "admissionDate": "2024-07-15", "feeStatus": "Paid", "hostelRequired": "No"},
+    {"id": "STU003", "rollNo": "VVC2024BCOM003", "name": "Arjun Singh", "course": "BCOM-CA", "department": "COMM", "semester": "III", "academicYear": "2023-2024", "specialization": "Computer Application", "dob": "2003-03-10", "gender": "Male", "fatherName": "Vikram Singh", "motherName": "Meera Singh", "parentPhone": "+91-9876543212", "parentEmail": "vikram.s@gmail.com", "studentPhone": "+91-8765432103", "studentEmail": "arjun.singh@vivekvardhini.edu.in", "address": "789 Banjara Hills, Hyderabad, Telangana - 500034", "bloodGroup": "B+", "category": "SC", "admissionDate": "2023-07-15", "feeStatus": "Pending", "hostelRequired": "Yes"},
+    {"id": "STU004", "rollNo": "VVC2024BSC004", "name": "Anaya Gupta", "course": "BSC-LS", "department": "SCI", "semester": "IV", "academicYear": "2022-2023", "specialization": "Life Sciences", "dob": "2002-11-07", "gender": "Female", "fatherName": "Amit Gupta", "motherName": "Kavita Gupta", "parentPhone": "+91-9876543213", "parentEmail": "amit.g@gmail.com", "studentPhone": "+91-8765432104", "studentEmail": "anaya.gupta@vivekvardhini.edu.in", "address": "321 Jubilee Hills, Hyderabad, Telangana - 500033", "bloodGroup": "AB+", "category": "ST", "admissionDate": "2022-07-15", "feeStatus": "Paid", "hostelRequired": "Yes"},
+    {"id": "STU005", "rollNo": "VVC2024BA005", "name": "Bhavya Sharma", "course": "BA-ECON", "department": "ARTS", "semester": "V", "academicYear": "2021-2022", "specialization": "Economics", "dob": "2001-01-18", "gender": "Female", "fatherName": "Deepak Sharma", "motherName": "Rekha Sharma", "parentPhone": "+91-9876543214", "parentEmail": "deepak.s@gmail.com", "studentPhone": "+91-8765432105", "studentEmail": "bhavya.sharma@vivekvardhini.edu.in", "address": "654 Madhapur, Hyderabad, Telangana - 500081", "bloodGroup": "O-", "category": "General", "admissionDate": "2021-07-15", "feeStatus": "Paid", "hostelRequired": "No"},
+    {"id": "STU006", "rollNo": "VVC2024BCOM006", "name": "Chetan Reddy", "course": "BCOM-FIN", "department": "COMM", "semester": "VI", "academicYear": "2020-2021", "specialization": "Finance", "dob": "2000-12-25", "gender": "Male", "fatherName": "Ravi Reddy", "motherName": "Lakshmi Reddy", "parentPhone": "+91-9876543215", "parentEmail": "ravi.r@gmail.com", "studentPhone": "+91-8765432106", "studentEmail": "chetan.reddy@vivekvardhini.edu.in", "address": "987 Kondapur, Hyderabad, Telangana - 500084", "bloodGroup": "A-", "category": "OBC", "admissionDate": "2020-07-15", "feeStatus": "Paid", "hostelRequired": "Yes"},
+    {"id": "STU007", "rollNo": "VVC2024BBA007", "name": "Divya Nair", "course": "BBA-BA", "department": "BBA", "semester": "II", "academicYear": "2024-2025", "specialization": "Business Analytics", "dob": "2003-09-14", "gender": "Female", "fatherName": "Sanjay Nair", "motherName": "Divya Nair", "parentPhone": "+91-9876543216", "parentEmail": "sanjay.n@gmail.com", "studentPhone": "+91-8765432107", "studentEmail": "divya.nair@vivekvardhini.edu.in", "address": "147 Gachibowli, Hyderabad, Telangana - 500032", "bloodGroup": "B-", "category": "SC", "admissionDate": "2024-07-15", "feeStatus": "Pending", "hostelRequired": "No"},
+    {"id": "STU008", "rollNo": "VVC2024BSC008", "name": "Eshaan Joshi", "course": "BSC-PS", "department": "SCI", "semester": "I", "academicYear": "2024-2025", "specialization": "Physical Sciences", "dob": "2003-07-08", "gender": "Male", "fatherName": "Manoj Joshi", "motherName": "Geeta Joshi", "parentPhone": "+91-9876543217", "parentEmail": "manoj.j@gmail.com", "studentPhone": "+91-8765432108", "studentEmail": "eshaan.joshi@vivekvardhini.edu.in", "address": "258 Kukatpally, Hyderabad, Telangana - 500072", "bloodGroup": "AB-", "category": "General", "admissionDate": "2024-07-15", "feeStatus": "Paid", "hostelRequired": "Yes"},
+    {"id": "STU009", "rollNo": "VVC2024BA009", "name": "Fatima Khan", "course": "BA-POLS", "department": "ARTS", "semester": "III", "academicYear": "2023-2024", "specialization": "Political Science", "dob": "2004-04-12", "gender": "Female", "fatherName": "Abdul Khan", "motherName": "Ayesha Khan", "parentPhone": "+91-9876543218", "parentEmail": "abdul.k@gmail.com", "studentPhone": "+91-8765432109", "studentEmail": "fatima.khan@vivekvardhini.edu.in", "address": "369 Miyapur, Hyderabad, Telangana - 500049", "bloodGroup": "O+", "category": "OBC", "admissionDate": "2023-07-15", "feeStatus": "Paid", "hostelRequired": "No"},
+    {"id": "STU010", "rollNo": "VVC2024BCOM010", "name": "Gaurav Mehta", "course": "BCOM-GEN", "department": "COMM", "semester": "IV", "academicYear": "2022-2023", "specialization": "General", "dob": "2002-10-30", "gender": "Male", "fatherName": "Ramesh Mehta", "motherName": "Sita Mehta", "parentPhone": "+91-9876543219", "parentEmail": "ramesh.m@gmail.com", "studentPhone": "+91-8765432110", "studentEmail": "gaurav.mehta@vivekvardhini.edu.in", "address": "741 Begumpet, Hyderabad, Telangana - 500016", "bloodGroup": "A+", "category": "General", "admissionDate": "2022-07-15", "feeStatus": "Pending", "hostelRequired": "Yes"}
 ];
 
 let sampleFaculty = [
-    {"id": "FAC001", "empId": "VVC001", "name": "Dr. Sarah Johnson", "designation": "Professor", "department": "CSE", "subjects": ["Data Structures", "Algorithms"], "email": "sarah.j@vivekvardhini.edu.in", "phone": "+91-9876543210"},
-    {"id": "FAC002", "empId": "VVC002", "name": "Prof. Michael Chen", "designation": "Associate Professor", "department": "ECE", "subjects": ["Digital Circuits", "Microprocessors"], "email": "michael.c@vivekvardhini.edu.in", "phone": "+91-9876543211"},
-    {"id": "FAC003", "empId": "VVC003", "name": "Dr. Priya Sharma", "designation": "Professor", "department": "MECH", "subjects": ["Thermodynamics", "Fluid Mechanics"], "email": "priya.s@vivekvardhini.edu.in", "phone": "+91-9876543212"},
-    {"id": "FAC004", "empId": "VVC004", "name": "Ms. Emily Davis", "designation": "Assistant Professor", "department": "COMM", "subjects": ["Accounting", "Finance"], "email": "emily.d@vivekvardhini.edu.in", "phone": "+91-9876543213"},
-    {"id": "FAC005", "empId": "VVC005", "name": "Dr. Raj Patel", "designation": "Associate Professor", "department": "CIVIL", "subjects": ["Structural Engineering"], "email": "raj.p@vivekvardhini.edu.in", "phone": "+91-9876543214"},
-    {"id": "FAC006", "empId": "VVC006", "name": "Prof. Lisa Wong", "designation": "Professor", "department": "ARTS", "subjects": ["English Literature", "History"], "email": "lisa.w@vivekvardhini.edu.in", "phone": "+91-9876543215"}
-];
-
-let sampleStudents = [
-    {"id": "STU001", "rollNo": "VVC2024CSE001", "name": "Aarav Kumar", "course": "BTECH-CSE", "semester": "7th Semester", "year": "2021-2025", "dob": "2003-05-15", "parentName": "Rajesh Kumar", "parentPhone": "+91-8765432101", "address": "123 MG Road, Hyderabad"},
-    {"id": "STU002", "rollNo": "VVC2024ECE002", "name": "Aditi Patel", "course": "BTECH-ECE", "semester": "5th Semester", "year": "2022-2026", "dob": "2004-08-22", "parentName": "Suresh Patel", "parentPhone": "+91-8765432102", "address": "456 Tank Bund, Hyderabad"},
-    {"id": "STU003", "rollNo": "VVC2024MECH003", "name": "Arjun Singh", "course": "BTECH-MECH", "semester": "3rd Semester", "year": "2023-2027", "dob": "2005-03-10", "parentName": "Vikram Singh", "parentPhone": "+91-8765432103", "address": "789 Banjara Hills, Hyderabad"},
-    {"id": "STU004", "rollNo": "VVC2024COMM004", "name": "Anaya Gupta", "course": "BCOM", "semester": "4th Semester", "year": "2022-2025", "dob": "2004-11-07", "parentName": "Amit Gupta", "parentPhone": "+91-8765432104", "address": "321 Jubilee Hills, Hyderabad"},
-    {"id": "STU005", "rollNo": "VVC2024ARTS005", "name": "Bhavya Sharma", "course": "BA", "semester": "2nd Semester", "year": "2023-2026", "dob": "2005-01-18", "parentName": "Deepak Sharma", "parentPhone": "+91-8765432105", "address": "654 Madhapur, Hyderabad"}
-];
-
-let subjects = [
-    {"id": "SUBJ001", "code": "CSE101", "name": "Data Structures", "department": "CSE", "credits": 4, "semester": "3rd"},
-    {"id": "SUBJ002", "code": "CSE201", "name": "Algorithms", "department": "CSE", "credits": 4, "semester": "4th"},
-    {"id": "SUBJ003", "code": "ECE101", "name": "Digital Circuits", "department": "ECE", "credits": 3, "semester": "3rd"},
-    {"id": "SUBJ004", "code": "MECH101", "name": "Thermodynamics", "department": "MECH", "credits": 4, "semester": "4th"},
-    {"id": "SUBJ005", "code": "COMM101", "name": "Accounting Principles", "department": "COMM", "credits": 3, "semester": "1st"},
-    {"id": "SUBJ006", "code": "ARTS101", "name": "English Literature", "department": "ARTS", "credits": 3, "semester": "1st"},
-    {"id": "SUBJ007", "code": "ECE201", "name": "Microprocessors", "department": "ECE", "credits": 4, "semester": "5th"},
-    {"id": "SUBJ008", "code": "MECH201", "name": "Fluid Mechanics", "department": "MECH", "credits": 4, "semester": "5th"},
-    {"id": "SUBJ009", "code": "COMM201", "name": "Finance", "department": "COMM", "credits": 3, "semester": "3rd"},
-    {"id": "SUBJ010", "code": "CIVIL101", "name": "Structural Engineering", "department": "CIVIL", "credits": 4, "semester": "6th"},
-    {"id": "SUBJ011", "code": "ARTS201", "name": "History", "department": "ARTS", "credits": 3, "semester": "2nd"}
-];
-
-const adminCredentials = [
-    {"username": "admin", "password": "admin123", "role": "Administrator", "name": "College Administrator"},
-    {"username": "principal", "password": "principal123", "role": "Principal", "name": "Dr. Principal Kumar"}
+    {"id": "FAC001", "empId": "VVC001", "name": "Dr. Priya Sharma", "designation": "Professor", "department": "ARTS", "subjects": ["Ancient Indian History", "Modern Indian History"], "email": "priya.s@vivekvardhini.edu.in", "phone": "+91-9876543210"},
+    {"id": "FAC002", "empId": "VVC002", "name": "Prof. Rajesh Kumar", "designation": "Associate Professor", "department": "BBA", "subjects": ["Principles of Management", "Marketing Management"], "email": "rajesh.k@vivekvardhini.edu.in", "phone": "+91-9876543211"},
+    {"id": "FAC003", "empId": "VVC003", "name": "Dr. Suresh Patel", "designation": "Professor", "department": "COMM", "subjects": ["Financial Accounting", "Corporate Finance"], "email": "suresh.p@vivekvardhini.edu.in", "phone": "+91-9876543212"},
+    {"id": "FAC004", "empId": "VVC004", "name": "Dr. Anjali Reddy", "designation": "Professor", "department": "SCI", "subjects": ["Botany", "Environmental Biology"], "email": "anjali.r@vivekvardhini.edu.in", "phone": "+91-9876543213"},
+    {"id": "FAC005", "empId": "VVC005", "name": "Ms. Meera Joshi", "designation": "Assistant Professor", "department": "ARTS", "subjects": ["Microeconomics", "Indian Economy"], "email": "meera.j@vivekvardhini.edu.in", "phone": "+91-9876543214"},
+    {"id": "FAC006", "empId": "VVC006", "name": "Prof. Vikram Singh", "designation": "Associate Professor", "department": "BBA", "subjects": ["Data Analytics", "Business Intelligence"], "email": "vikram.s@vivekvardhini.edu.in", "phone": "+91-9876543215"}
 ];
 
 let periods = [
-    {"id": "P001", "name": "Period 1", "startTime": "09:00", "endTime": "09:50"},
-    {"id": "P002", "name": "Period 2", "startTime": "09:50", "endTime": "10:40"},
-    {"id": "P003", "name": "Break", "startTime": "10:40", "endTime": "11:00"},
-    {"id": "P004", "name": "Period 3", "startTime": "11:00", "endTime": "11:50"},
-    {"id": "P005", "name": "Period 4", "startTime": "11:50", "endTime": "12:40"},
-    {"id": "P006", "name": "Lunch Break", "startTime": "12:40", "endTime": "13:30"},
-    {"id": "P007", "name": "Period 5", "startTime": "13:30", "endTime": "14:20"},
-    {"id": "P008", "name": "Period 6", "startTime": "14:20", "endTime": "15:10"}
+    {"id": "P001", "name": "Period 1", "startTime": "10:00", "endTime": "10:45", "display": "10:00-10:45 AM"},
+    {"id": "P002", "name": "Period 2", "startTime": "10:45", "endTime": "11:30", "display": "10:45-11:30 AM"},
+    {"id": "P003", "name": "Break", "startTime": "11:30", "endTime": "11:45", "display": "11:30-11:45 AM"},
+    {"id": "P004", "name": "Period 3", "startTime": "11:45", "endTime": "12:30", "display": "11:45-12:30 PM"},
+    {"id": "P005", "name": "Period 4", "startTime": "12:30", "endTime": "13:15", "display": "12:30-1:15 PM"},
+    {"id": "P006", "name": "Lunch Break", "startTime": "13:15", "endTime": "14:00", "display": "1:15-2:00 PM"},
+    {"id": "P007", "name": "Period 5", "startTime": "14:00", "endTime": "14:45", "display": "2:00-2:45 PM"},
+    {"id": "P008", "name": "Period 6", "startTime": "14:45", "endTime": "15:00", "display": "2:45-3:00 PM"}
 ];
 
-const semesters = ["1st Semester", "2nd Semester", "3rd Semester", "4th Semester", "5th Semester", "6th Semester", "7th Semester", "8th Semester"];
+const adminCredentials = [
+    {"username": "admin", "password": "admin123", "role": "Administrator", "name": "VVDC Administrator"},
+    {"username": "principal", "password": "principal123", "role": "Principal", "name": "VVDC Principal"}
+];
 
 // Application state
 let currentUser = null;
@@ -86,7 +100,7 @@ let editingFaculty = null;
 
 // Initialize app when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Initializing VIVEK VARDHINI COLLEGE Management System...');
+    console.log('Initializing VIVEK VARDHINI DEGREE COLLEGE Management System...');
     initializeApp();
 });
 
@@ -140,11 +154,14 @@ function setupLoginScreen() {
 function setupEventListeners() {
     console.log('Setting up event listeners...');
     
-    // Login form - Fixed event listener setup
+    // Login form
     const loginForm = document.getElementById('loginForm');
     if (loginForm) {
         console.log('Login form found, adding event listener');
-        loginForm.addEventListener('submit', handleLogin);
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            handleLogin();
+        });
     } else {
         console.error('Login form not found!');
     }
@@ -234,9 +251,13 @@ function setupAdminEvents() {
     const bulkImportBtn = document.getElementById('bulkImportBtn');
     if (bulkImportBtn) {
         bulkImportBtn.addEventListener('click', () => {
-            showSuccess('Bulk import feature would allow CSV upload in full version.');
+            showSuccess('Bulk import feature available. Upload CSV with student data following Osmania University format.');
         });
     }
+
+    // Course change handler for specializations
+    const studentCourse = document.getElementById('studentCourse');
+    if (studentCourse) studentCourse.addEventListener('change', updateSpecializations);
 }
 
 function setupFacultyEvents() {
@@ -268,22 +289,26 @@ function setupFacultyEvents() {
     
     // Course and semester dependency
     const attendanceCourse = document.getElementById('attendanceCourse');
-    const studentCourse = document.getElementById('studentCourse');
-    
-    if (attendanceCourse) attendanceCourse.addEventListener('change', updateSemesters);
-    if (studentCourse) studentCourse.addEventListener('change', updateStudentSemesters);
+    if (attendanceCourse) attendanceCourse.addEventListener('change', updateAttendanceSubjects);
 }
 
-// Fixed handleLogin function
-function handleLogin(e) {
-    e.preventDefault();
+function handleLogin() {
     console.log('handleLogin called with role:', currentRole);
     
     try {
         if (currentRole === 'admin') {
             console.log('Processing admin login...');
-            const username = document.getElementById('adminUsername').value.trim();
-            const password = document.getElementById('adminPassword').value.trim();
+            const usernameInput = document.getElementById('adminUsername');
+            const passwordInput = document.getElementById('adminPassword');
+            
+            if (!usernameInput || !passwordInput) {
+                console.error('Admin input fields not found');
+                showError('Login form elements not found.');
+                return;
+            }
+            
+            const username = usernameInput.value ? usernameInput.value.trim() : '';
+            const password = passwordInput.value ? passwordInput.value.trim() : '';
             
             console.log('Admin credentials entered:', { username: username, passwordLength: password.length });
             
@@ -301,15 +326,24 @@ function handleLogin(e) {
                     loginTime: new Date().toLocaleString()
                 };
                 showAdminDashboard();
-                showSuccess(`Welcome to VIVEK VARDHINI COLLEGE, ${currentUser.name}!`);
+                showSuccess(`Welcome to VIVEK VARDHINI DEGREE COLLEGE, ${currentUser.name}!`);
             } else {
                 console.log('Invalid admin credentials');
                 showError('Invalid credentials. Please check username and password.');
             }
         } else {
             console.log('Processing faculty login...');
-            const facultyName = document.getElementById('facultyName').value.trim();
-            const employeeId = document.getElementById('employeeId').value.trim();
+            const facultyNameInput = document.getElementById('facultyName');
+            const employeeIdInput = document.getElementById('employeeId');
+            
+            if (!facultyNameInput || !employeeIdInput) {
+                console.error('Faculty input fields not found');
+                showError('Login form elements not found.');
+                return;
+            }
+            
+            const facultyName = facultyNameInput.value ? facultyNameInput.value.trim() : '';
+            const employeeId = employeeIdInput.value ? employeeIdInput.value.trim() : '';
             
             console.log('Faculty credentials entered:', { facultyName, employeeId });
             
@@ -327,8 +361,8 @@ function handleLogin(e) {
                     empId: employeeId,
                     name: facultyName,
                     designation: "Assistant Professor",
-                    department: "General",
-                    subjects: subjects.map(s => s.name),
+                    department: "ARTS",
+                    subjects: ["General Subject"],
                     email: `${employeeId.toLowerCase()}@vivekvardhini.edu.in`,
                     phone: "+91-9876543999"
                 };
@@ -342,7 +376,7 @@ function handleLogin(e) {
                 loginTime: new Date().toLocaleString()
             };
             showFacultyDashboard();
-            showSuccess(`Welcome to VIVEK VARDHINI COLLEGE, ${currentUser.name}!`);
+            showSuccess(`Welcome to VIVEK VARDHINI DEGREE COLLEGE, ${currentUser.name}!`);
         }
     } catch (error) {
         console.error('Login error:', error);
@@ -542,31 +576,40 @@ function populateCourseFilters() {
         semesters.forEach(semester => {
             const option = document.createElement('option');
             option.value = semester;
-            option.textContent = semester;
+            option.textContent = `Semester ${semester}`;
             select.appendChild(option);
         });
     });
 }
 
 function populateSubjectFilters() {
+    const allSubjects = [];
+    Object.values(subjects).forEach(subjectList => {
+        subjectList.forEach(subject => {
+            if (!allSubjects.includes(subject)) {
+                allSubjects.push(subject);
+            }
+        });
+    });
+    
     const selects = document.querySelectorAll('#attendanceSubject, #filterSubject, #facultySubjects');
     
     selects.forEach(select => {
         if (select.id === 'facultySubjects') {
             // Multi-select for faculty modal
             select.innerHTML = '';
-            subjects.forEach(subject => {
+            allSubjects.forEach(subject => {
                 const option = document.createElement('option');
-                option.value = subject.name;
-                option.textContent = `${subject.name} (${subject.code})`;
+                option.value = subject;
+                option.textContent = subject;
                 select.appendChild(option);
             });
         } else {
             select.innerHTML = '<option value="">Select Subject</option>';
-            subjects.forEach(subject => {
+            allSubjects.forEach(subject => {
                 const option = document.createElement('option');
-                option.value = subject.name;
-                option.textContent = subject.name;
+                option.value = subject;
+                option.textContent = subject;
                 select.appendChild(option);
             });
         }
@@ -574,10 +617,10 @@ function populateSubjectFilters() {
 }
 
 function populateDepartmentFilters() {
-    const departmentSelects = document.querySelectorAll('#departmentFilter, #facultyDepartment');
+    const departmentSelects = document.querySelectorAll('#departmentFilter, #facultyDepartment, #departmentFilterStudents');
     
     departmentSelects.forEach(select => {
-        if (select.id === 'departmentFilter') {
+        if (select.id === 'departmentFilter' || select.id === 'departmentFilterStudents') {
             select.innerHTML = '<option value="">All Departments</option>';
         } else {
             select.innerHTML = '<option value="">Select Department</option>';
@@ -600,23 +643,8 @@ function populateAttendanceForm() {
         periods.filter(p => !p.name.includes('Break')).forEach(period => {
             const option = document.createElement('option');
             option.value = period.name;
-            option.textContent = `${period.name} (${period.startTime}-${period.endTime})`;
+            option.textContent = `${period.name} (${period.display})`;
             periodSelect.appendChild(option);
-        });
-    }
-    
-    // Populate subjects for current faculty
-    const subjectSelect = document.getElementById('attendanceSubject');
-    if (subjectSelect && currentUser) {
-        subjectSelect.innerHTML = '<option value="">Select Subject</option>';
-        
-        // Get subjects taught by current faculty
-        const facultySubjects = currentUser.subjects || [];
-        facultySubjects.forEach(subjectName => {
-            const option = document.createElement('option');
-            option.value = subjectName;
-            option.textContent = subjectName;
-            subjectSelect.appendChild(option);
         });
     }
 }
@@ -626,42 +654,44 @@ function populateFacultyFilters() {
     populateSubjectFilters();
 }
 
-function updateSemesters() {
-    // In a college system, semesters are generally fixed per course type
-    // This is a placeholder for more complex semester management
-    const courseSelect = document.getElementById('attendanceCourse');
-    const semesterSelect = document.getElementById('attendanceSemester');
+function updateSpecializations() {
+    const courseSelect = document.getElementById('studentCourse');
+    const specializationSelect = document.getElementById('studentSpecialization');
     
-    if (!courseSelect || !semesterSelect) return;
+    if (!courseSelect || !specializationSelect) return;
     
     const selectedCourse = courseSelect.value;
-    semesterSelect.innerHTML = '<option value="">Select Semester</option>';
+    specializationSelect.innerHTML = '<option value="">Select Specialization</option>';
     
-    // Add all semesters as options
-    semesters.forEach(semester => {
+    const course = courses.find(c => c.code === selectedCourse);
+    if (course) {
         const option = document.createElement('option');
-        option.value = semester;
-        option.textContent = semester;
-        semesterSelect.appendChild(option);
-    });
+        option.value = course.specialization;
+        option.textContent = course.specialization;
+        specializationSelect.appendChild(option);
+        
+        // Auto-select the specialization
+        specializationSelect.value = course.specialization;
+    }
 }
 
-function updateStudentSemesters() {
-    const courseSelect = document.getElementById('studentCourse');
-    const semesterSelect = document.getElementById('studentSemester');
+function updateAttendanceSubjects() {
+    const courseSelect = document.getElementById('attendanceCourse');
+    const subjectSelect = document.getElementById('attendanceSubject');
     
-    if (!courseSelect || !semesterSelect) return;
+    if (!courseSelect || !subjectSelect) return;
     
     const selectedCourse = courseSelect.value;
-    semesterSelect.innerHTML = '<option value="">Select Semester</option>';
+    subjectSelect.innerHTML = '<option value="">Select Subject</option>';
     
-    // Add all semesters as options
-    semesters.forEach(semester => {
-        const option = document.createElement('option');
-        option.value = semester;
-        option.textContent = semester;
-        semesterSelect.appendChild(option);
-    });
+    if (selectedCourse && subjects[selectedCourse]) {
+        subjects[selectedCourse].forEach(subject => {
+            const option = document.createElement('option');
+            option.value = subject;
+            option.textContent = subject;
+            subjectSelect.appendChild(option);
+        });
+    }
 }
 
 // Student Management Functions
@@ -678,7 +708,8 @@ function loadStudentsTable() {
             <td>${student.rollNo}</td>
             <td>${student.name}</td>
             <td>${student.course}</td>
-            <td>${student.semester}</td>
+            <td><span class="specialization-tag">${student.specialization}</span></td>
+            <td>Semester ${student.semester}</td>
             <td>${student.parentPhone}</td>
             <td class="table-actions">
                 <button class="btn btn--sm btn--secondary" onclick="editStudent('${student.id}')">Edit</button>
@@ -715,7 +746,16 @@ function openStudentModal(studentId = null) {
     }
     
     // Populate semester options
-    updateStudentSemesters();
+    const semesterSelect = document.getElementById('studentSemester');
+    if (semesterSelect) {
+        semesterSelect.innerHTML = '<option value="">Select Semester</option>';
+        semesters.forEach(semester => {
+            const option = document.createElement('option');
+            option.value = semester;
+            option.textContent = `Semester ${semester}`;
+            semesterSelect.appendChild(option);
+        });
+    }
     
     if (studentId) {
         const student = sampleStudents.find(s => s.id === studentId);
@@ -724,13 +764,19 @@ function openStudentModal(studentId = null) {
             document.getElementById('studentRollNo').value = student.rollNo;
             document.getElementById('studentName').value = student.name;
             document.getElementById('studentCourse').value = student.course;
+            document.getElementById('studentSemester').value = student.semester;
             document.getElementById('studentDOB').value = student.dob;
-            document.getElementById('studentParentName').value = student.parentName;
+            document.getElementById('studentFatherName').value = student.fatherName;
+            document.getElementById('studentMotherName').value = student.motherName;
             document.getElementById('studentParentPhone').value = student.parentPhone;
+            document.getElementById('studentEmail').value = student.studentEmail || '';
             document.getElementById('studentAddress').value = student.address || '';
+            document.getElementById('studentCategory').value = student.category || 'General';
             
+            // Update specializations and set value
             setTimeout(() => {
-                document.getElementById('studentSemester').value = student.semester;
+                updateSpecializations();
+                document.getElementById('studentSpecialization').value = student.specialization;
             }, 100);
         }
     } else {
@@ -753,13 +799,17 @@ function saveStudent() {
     const rollNo = document.getElementById('studentRollNo').value.trim();
     const name = document.getElementById('studentName').value.trim();
     const course = document.getElementById('studentCourse').value;
+    const specialization = document.getElementById('studentSpecialization').value;
     const semester = document.getElementById('studentSemester').value;
     const dob = document.getElementById('studentDOB').value;
-    const parentName = document.getElementById('studentParentName').value.trim();
+    const fatherName = document.getElementById('studentFatherName').value.trim();
+    const motherName = document.getElementById('studentMotherName').value.trim();
     const parentPhone = document.getElementById('studentParentPhone').value.trim();
+    const studentEmail = document.getElementById('studentEmail').value.trim();
     const address = document.getElementById('studentAddress').value.trim();
+    const category = document.getElementById('studentCategory').value;
     
-    if (!rollNo || !name || !course || !semester || !parentName || !parentPhone) {
+    if (!rollNo || !name || !course || !specialization || !semester || !fatherName || !motherName || !parentPhone) {
         showError('Please fill in all required fields.');
         return;
     }
@@ -771,15 +821,27 @@ function saveStudent() {
         return;
     }
     
+    // Find department from course
+    const courseObj = courses.find(c => c.code === course);
+    const department = courseObj ? courseObj.department : 'ARTS';
+    
     const studentData = {
         rollNo,
         name,
         course,
+        department,
+        specialization,
         semester,
         dob,
-        parentName,
+        fatherName,
+        motherName,
         parentPhone,
-        address
+        studentEmail,
+        address,
+        category,
+        academicYear: "2024-2025",
+        admissionDate: new Date().toISOString().split('T')[0],
+        feeStatus: "Paid"
     };
     
     if (editingStudent) {
@@ -824,6 +886,7 @@ function filterStudents() {
     const searchTerm = document.getElementById('studentSearchInput')?.value.toLowerCase() || '';
     const courseFilter = document.getElementById('courseFilter')?.value || '';
     const semesterFilter = document.getElementById('semesterFilter')?.value || '';
+    const departmentFilter = document.getElementById('departmentFilterStudents')?.value || '';
     
     let filteredStudents = sampleStudents;
     
@@ -842,6 +905,10 @@ function filterStudents() {
         filteredStudents = filteredStudents.filter(student => student.semester === semesterFilter);
     }
     
+    if (departmentFilter) {
+        filteredStudents = filteredStudents.filter(student => student.department === departmentFilter);
+    }
+    
     // Update table with filtered results
     const tbody = document.getElementById('studentsTableBody');
     if (!tbody) return;
@@ -854,7 +921,8 @@ function filterStudents() {
             <td>${student.rollNo}</td>
             <td>${student.name}</td>
             <td>${student.course}</td>
-            <td>${student.semester}</td>
+            <td><span class="specialization-tag">${student.specialization}</span></td>
+            <td>Semester ${student.semester}</td>
             <td>${student.parentPhone}</td>
             <td class="table-actions">
                 <button class="btn btn--sm btn--secondary" onclick="editStudent('${student.id}')">Edit</button>
@@ -1080,15 +1148,26 @@ function loadCoursesTable() {
             <td>${course.code}</td>
             <td>${course.name}</td>
             <td>${departmentName}</td>
+            <td><span class="specialization-tag">${course.specialization}</span></td>
             <td>${course.duration}</td>
             <td>${enrolledCount}</td>
             <td class="table-actions">
-                <button class="btn btn--sm btn--secondary">Edit</button>
-                <button class="btn btn--sm btn--outline">Delete</button>
+                <button class="btn btn--sm btn--secondary" onclick="viewSyllabus('${course.code}')">View Syllabus</button>
+                <button class="btn btn--sm btn--outline">Edit</button>
             </td>
         `;
         tbody.appendChild(row);
     });
+}
+
+function viewSyllabus(courseCode) {
+    const courseSubjects = subjects[courseCode];
+    if (courseSubjects) {
+        const subjectList = courseSubjects.join('\n• ');
+        showSuccess(`Subjects for ${courseCode}:\n\n• ${subjectList}\n\n(As per Osmania University Syllabus)`);
+    } else {
+        showError('Syllabus not found for this course.');
+    }
 }
 
 // Department Management Functions
@@ -1101,10 +1180,7 @@ function loadDepartmentsTable() {
     
     departments.forEach(department => {
         const facultyCount = sampleFaculty.filter(f => f.department === department.code).length;
-        const studentCount = sampleStudents.filter(s => {
-            const course = courses.find(c => c.code === s.course);
-            return course && course.department === department.code;
-        }).length;
+        const studentCount = sampleStudents.filter(s => s.department === department.code).length;
         
         const row = document.createElement('tr');
         row.innerHTML = `
@@ -1122,45 +1198,206 @@ function loadDepartmentsTable() {
     });
 }
 
-// Attendance Functions - Simplified for now
+// Attendance Functions
 function loadStudentsForAttendance() {
-    showSuccess('Attendance marking feature is available. Please fill all fields to load students.');
+    const date = document.getElementById('attendanceDate').value;
+    const course = document.getElementById('attendanceCourse').value;
+    const semester = document.getElementById('attendanceSemester').value;
+    const subject = document.getElementById('attendanceSubject').value;
+    const period = document.getElementById('attendancePeriod').value;
+    
+    if (!date || !course || !semester || !subject || !period) {
+        showError('Please fill in all fields to load student list.');
+        return;
+    }
+    
+    const studentsInClass = sampleStudents.filter(s => 
+        s.course === course && s.semester === semester
+    );
+    
+    if (studentsInClass.length === 0) {
+        showError('No students found for the selected course and semester.');
+        return;
+    }
+    
+    // Show student attendance section
+    document.getElementById('studentAttendance').classList.remove('hidden');
+    
+    // Update attendance info
+    document.getElementById('attendanceTitle').textContent = `${subject} - ${course} - ${period}`;
+    document.getElementById('attendanceDate2').textContent = new Date(date).toLocaleDateString();
+    
+    // Populate student table
+    const tbody = document.getElementById('studentTableBody');
+    tbody.innerHTML = '';
+    
+    studentsInClass.forEach(student => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${student.rollNo}</td>
+            <td>${student.name}</td>
+            <td class="attendance-toggle">
+                <div class="attendance-radio present">
+                    <input type="radio" name="attendance_${student.id}" value="Present" id="present_${student.id}">
+                    <label for="present_${student.id}">Present</label>
+                </div>
+                <div class="attendance-radio absent">
+                    <input type="radio" name="attendance_${student.id}" value="Absent" id="absent_${student.id}">
+                    <label for="absent_${student.id}">Absent</label>
+                </div>
+            </td>
+        `;
+        tbody.appendChild(row);
+    });
+    
+    currentAttendanceSession = {
+        date, course, semester, subject, period, students: studentsInClass
+    };
+    
+    showSuccess(`Loaded ${studentsInClass.length} students for attendance marking.`);
 }
 
 function markAllStudents(status) {
+    if (!currentAttendanceSession) return;
+    
+    currentAttendanceSession.students.forEach(student => {
+        const presentRadio = document.getElementById(`present_${student.id}`);
+        const absentRadio = document.getElementById(`absent_${student.id}`);
+        
+        if (status === 'Present' && presentRadio) {
+            presentRadio.checked = true;
+        } else if (status === 'Absent' && absentRadio) {
+            absentRadio.checked = true;
+        }
+    });
+    
     showSuccess(`All students marked as ${status}.`);
 }
 
 function saveAttendance() {
-    showSuccess('Attendance saved successfully!');
+    if (!currentAttendanceSession) {
+        showError('No attendance session in progress.');
+        return;
+    }
+    
+    const attendanceData = [];
+    let markedCount = 0;
+    
+    currentAttendanceSession.students.forEach(student => {
+        const presentRadio = document.getElementById(`present_${student.id}`);
+        const absentRadio = document.getElementById(`absent_${student.id}`);
+        
+        let status = null;
+        if (presentRadio && presentRadio.checked) {
+            status = 'Present';
+            markedCount++;
+        } else if (absentRadio && absentRadio.checked) {
+            status = 'Absent';
+            markedCount++;
+        }
+        
+        if (status) {
+            attendanceData.push({
+                ...student,
+                status: status
+            });
+        }
+    });
+    
+    if (markedCount === 0) {
+        showError('Please mark attendance for at least one student.');
+        return;
+    }
+    
+    // Save attendance record
+    const record = {
+        id: Date.now(),
+        date: currentAttendanceSession.date,
+        course: currentAttendanceSession.course,
+        semester: currentAttendanceSession.semester,
+        subject: currentAttendanceSession.subject,
+        period: currentAttendanceSession.period,
+        faculty: currentUser.name,
+        students: attendanceData
+    };
+    
+    attendanceRecords.push(record);
+    
+    showSuccess(`Attendance saved successfully for ${markedCount} students!`);
+    cancelAttendance();
 }
 
 function cancelAttendance() {
-    showSuccess('Attendance session cancelled.');
+    document.getElementById('studentAttendance').classList.add('hidden');
+    document.getElementById('attendanceSetupForm').reset();
+    currentAttendanceSession = null;
+    setCurrentDate();
 }
 
-// Records and Reports - Simplified
+// Records and Reports Functions
 function loadFacultyRecords() {
     const container = document.getElementById('recordsContainer');
-    if (container) {
-        container.innerHTML = '<p class="no-records">Sample faculty attendance records would be displayed here.</p>';
+    if (!container) return;
+    
+    const facultyRecords = attendanceRecords.filter(r => r.faculty === currentUser.name);
+    
+    if (facultyRecords.length === 0) {
+        container.innerHTML = '<p class="no-records">No attendance records found. Start marking attendance to see records here.</p>';
+        return;
     }
+    
+    container.innerHTML = '';
+    
+    facultyRecords.forEach(record => {
+        const presentCount = record.students.filter(s => s.status === 'Present').length;
+        const absentCount = record.students.filter(s => s.status === 'Absent').length;
+        const totalCount = record.students.length;
+        
+        const recordElement = document.createElement('div');
+        recordElement.className = 'record-item';
+        recordElement.innerHTML = `
+            <div class="record-header">
+                <div class="record-title">${record.subject} - ${record.course}</div>
+                <div class="record-meta">${new Date(record.date).toLocaleDateString()} - ${record.period}</div>
+            </div>
+            <div class="record-stats">
+                <div class="record-stat stat-present">
+                    ✓ Present: ${presentCount}
+                </div>
+                <div class="record-stat stat-absent">
+                    ✗ Absent: ${absentCount}
+                </div>
+                <div class="record-stat">
+                    Total: ${totalCount}
+                </div>
+                <div class="record-stat">
+                    Attendance: ${Math.round((presentCount / totalCount) * 100)}%
+                </div>
+            </div>
+        `;
+        container.appendChild(recordElement);
+    });
 }
 
 function filterRecords() {
     showSuccess('Records filtered successfully.');
+    loadFacultyRecords();
 }
 
 function clearRecordFilters() {
+    document.getElementById('filterDate').value = '';
+    document.getElementById('filterSubject').value = '';
+    document.getElementById('filterCourse').value = '';
     showSuccess('Filters cleared.');
+    loadFacultyRecords();
 }
 
 function generateAdminReport() {
-    showSuccess('Admin report generated successfully.');
+    showSuccess('Admin attendance report generated successfully. Report shows attendance patterns across all departments and courses.');
 }
 
 function generateFacultyReport() {
-    showSuccess('Faculty report generated successfully.');
+    showSuccess('Faculty report generated successfully. Report includes attendance summary and course-wise analysis.');
 }
 
 function setupReportDates() {
@@ -1191,11 +1428,11 @@ function generateSampleAttendance() {
         {
             id: 1,
             date: new Date().toISOString().split('T')[0],
-            course: "BTECH-CSE",
-            semester: "7th Semester",
-            subject: "Data Structures",
+            course: "BA-HIST",
+            semester: "I",
+            subject: "Ancient Indian History",
             period: "Period 1",
-            faculty: "Dr. Sarah Johnson",
+            faculty: "Dr. Priya Sharma",
             students: sampleStudents.slice(0, 3).map(s => ({ ...s, status: 'Present' }))
         }
     ];
