@@ -1,5 +1,4 @@
 // VIVEK VARDHINI DEGREE COLLEGE Management System JavaScript
-// Updated for Osmania University Affiliated Degree College
 
 // College data from application_data_json
 const collegeInfo = {
@@ -12,12 +11,24 @@ const collegeInfo = {
     "website": "www.vivekvardhini.edu.in",
     "timings": {
         "start": "10:00",
-        "end": "15:00",
-        "display": "10:00 AM - 3:00 PM"
+        "end": "16:00",
+        "academicEnd": "15:00",
+        "display": "10:00 AM - 4:00 PM",
+        "academicDisplay": "Academic Hours: 10:00 AM - 3:00 PM"
     }
 };
 
 const semesters = ["I", "II", "III", "IV", "V", "VI"];
+
+const periods = [
+    {"id": "P001", "name": "Period 1", "startTime": "10:00", "endTime": "10:50", "display": "10:00-10:50 AM", "duration": "50 min"},
+    {"id": "P002", "name": "Period 2", "startTime": "10:50", "endTime": "11:40", "display": "10:50-11:40 AM", "duration": "50 min"},
+    {"id": "P003", "name": "Period 3", "startTime": "11:40", "endTime": "12:30", "display": "11:40 AM-12:30 PM", "duration": "50 min"},
+    {"id": "P004", "name": "Period 4", "startTime": "12:30", "endTime": "13:20", "display": "12:30-1:20 PM", "duration": "50 min"},
+    {"id": "P005", "name": "Lunch Break", "startTime": "13:20", "endTime": "13:40", "display": "1:20-1:40 PM", "duration": "20 min", "isBreak": true},
+    {"id": "P006", "name": "Period 5", "startTime": "13:40", "endTime": "14:30", "display": "1:40-2:30 PM", "duration": "50 min"},
+    {"id": "P007", "name": "Extra Time", "startTime": "14:30", "endTime": "16:00", "display": "2:30-4:00 PM", "duration": "1.5 hours", "isExtra": true}
+];
 
 let departments = [
     {"id": "DEPT001", "code": "ARTS", "name": "Department of Arts & Humanities", "hod": "Dr. Priya Sharma"},
@@ -57,32 +68,14 @@ let sampleStudents = [
     {"id": "STU002", "rollNo": "VVC2024BBA002", "name": "Aditi Patel", "course": "BBA-GEN", "department": "BBA", "semester": "II", "academicYear": "2024-2025", "specialization": "General", "dob": "2004-08-22", "gender": "Female", "fatherName": "Suresh Patel", "motherName": "Priya Patel", "parentPhone": "+91-9876543211", "parentEmail": "suresh.p@gmail.com", "studentPhone": "+91-8765432102", "studentEmail": "aditi.patel@vivekvardhini.edu.in", "address": "456 Tank Bund, Hyderabad, Telangana - 500002", "bloodGroup": "A+", "category": "OBC", "admissionDate": "2024-07-15", "feeStatus": "Paid", "hostelRequired": "No"},
     {"id": "STU003", "rollNo": "VVC2024BCOM003", "name": "Arjun Singh", "course": "BCOM-CA", "department": "COMM", "semester": "III", "academicYear": "2023-2024", "specialization": "Computer Application", "dob": "2003-03-10", "gender": "Male", "fatherName": "Vikram Singh", "motherName": "Meera Singh", "parentPhone": "+91-9876543212", "parentEmail": "vikram.s@gmail.com", "studentPhone": "+91-8765432103", "studentEmail": "arjun.singh@vivekvardhini.edu.in", "address": "789 Banjara Hills, Hyderabad, Telangana - 500034", "bloodGroup": "B+", "category": "SC", "admissionDate": "2023-07-15", "feeStatus": "Pending", "hostelRequired": "Yes"},
     {"id": "STU004", "rollNo": "VVC2024BSC004", "name": "Anaya Gupta", "course": "BSC-LS", "department": "SCI", "semester": "IV", "academicYear": "2022-2023", "specialization": "Life Sciences", "dob": "2002-11-07", "gender": "Female", "fatherName": "Amit Gupta", "motherName": "Kavita Gupta", "parentPhone": "+91-9876543213", "parentEmail": "amit.g@gmail.com", "studentPhone": "+91-8765432104", "studentEmail": "anaya.gupta@vivekvardhini.edu.in", "address": "321 Jubilee Hills, Hyderabad, Telangana - 500033", "bloodGroup": "AB+", "category": "ST", "admissionDate": "2022-07-15", "feeStatus": "Paid", "hostelRequired": "Yes"},
-    {"id": "STU005", "rollNo": "VVC2024BA005", "name": "Bhavya Sharma", "course": "BA-ECON", "department": "ARTS", "semester": "V", "academicYear": "2021-2022", "specialization": "Economics", "dob": "2001-01-18", "gender": "Female", "fatherName": "Deepak Sharma", "motherName": "Rekha Sharma", "parentPhone": "+91-9876543214", "parentEmail": "deepak.s@gmail.com", "studentPhone": "+91-8765432105", "studentEmail": "bhavya.sharma@vivekvardhini.edu.in", "address": "654 Madhapur, Hyderabad, Telangana - 500081", "bloodGroup": "O-", "category": "General", "admissionDate": "2021-07-15", "feeStatus": "Paid", "hostelRequired": "No"},
-    {"id": "STU006", "rollNo": "VVC2024BCOM006", "name": "Chetan Reddy", "course": "BCOM-FIN", "department": "COMM", "semester": "VI", "academicYear": "2020-2021", "specialization": "Finance", "dob": "2000-12-25", "gender": "Male", "fatherName": "Ravi Reddy", "motherName": "Lakshmi Reddy", "parentPhone": "+91-9876543215", "parentEmail": "ravi.r@gmail.com", "studentPhone": "+91-8765432106", "studentEmail": "chetan.reddy@vivekvardhini.edu.in", "address": "987 Kondapur, Hyderabad, Telangana - 500084", "bloodGroup": "A-", "category": "OBC", "admissionDate": "2020-07-15", "feeStatus": "Paid", "hostelRequired": "Yes"},
-    {"id": "STU007", "rollNo": "VVC2024BBA007", "name": "Divya Nair", "course": "BBA-BA", "department": "BBA", "semester": "II", "academicYear": "2024-2025", "specialization": "Business Analytics", "dob": "2003-09-14", "gender": "Female", "fatherName": "Sanjay Nair", "motherName": "Divya Nair", "parentPhone": "+91-9876543216", "parentEmail": "sanjay.n@gmail.com", "studentPhone": "+91-8765432107", "studentEmail": "divya.nair@vivekvardhini.edu.in", "address": "147 Gachibowli, Hyderabad, Telangana - 500032", "bloodGroup": "B-", "category": "SC", "admissionDate": "2024-07-15", "feeStatus": "Pending", "hostelRequired": "No"},
-    {"id": "STU008", "rollNo": "VVC2024BSC008", "name": "Eshaan Joshi", "course": "BSC-PS", "department": "SCI", "semester": "I", "academicYear": "2024-2025", "specialization": "Physical Sciences", "dob": "2003-07-08", "gender": "Male", "fatherName": "Manoj Joshi", "motherName": "Geeta Joshi", "parentPhone": "+91-9876543217", "parentEmail": "manoj.j@gmail.com", "studentPhone": "+91-8765432108", "studentEmail": "eshaan.joshi@vivekvardhini.edu.in", "address": "258 Kukatpally, Hyderabad, Telangana - 500072", "bloodGroup": "AB-", "category": "General", "admissionDate": "2024-07-15", "feeStatus": "Paid", "hostelRequired": "Yes"},
-    {"id": "STU009", "rollNo": "VVC2024BA009", "name": "Fatima Khan", "course": "BA-POLS", "department": "ARTS", "semester": "III", "academicYear": "2023-2024", "specialization": "Political Science", "dob": "2004-04-12", "gender": "Female", "fatherName": "Abdul Khan", "motherName": "Ayesha Khan", "parentPhone": "+91-9876543218", "parentEmail": "abdul.k@gmail.com", "studentPhone": "+91-8765432109", "studentEmail": "fatima.khan@vivekvardhini.edu.in", "address": "369 Miyapur, Hyderabad, Telangana - 500049", "bloodGroup": "O+", "category": "OBC", "admissionDate": "2023-07-15", "feeStatus": "Paid", "hostelRequired": "No"},
-    {"id": "STU010", "rollNo": "VVC2024BCOM010", "name": "Gaurav Mehta", "course": "BCOM-GEN", "department": "COMM", "semester": "IV", "academicYear": "2022-2023", "specialization": "General", "dob": "2002-10-30", "gender": "Male", "fatherName": "Ramesh Mehta", "motherName": "Sita Mehta", "parentPhone": "+91-9876543219", "parentEmail": "ramesh.m@gmail.com", "studentPhone": "+91-8765432110", "studentEmail": "gaurav.mehta@vivekvardhini.edu.in", "address": "741 Begumpet, Hyderabad, Telangana - 500016", "bloodGroup": "A+", "category": "General", "admissionDate": "2022-07-15", "feeStatus": "Pending", "hostelRequired": "Yes"}
+    {"id": "STU005", "rollNo": "VVC2024BA005", "name": "Bhavya Sharma", "course": "BA-ECON", "department": "ARTS", "semester": "V", "academicYear": "2021-2022", "specialization": "Economics", "dob": "2001-01-18", "gender": "Female", "fatherName": "Deepak Sharma", "motherName": "Rekha Sharma", "parentPhone": "+91-9876543214", "parentEmail": "deepak.s@gmail.com", "studentPhone": "+91-8765432105", "studentEmail": "bhavya.sharma@vivekvardhini.edu.in", "address": "654 Madhapur, Hyderabad, Telangana - 500081", "bloodGroup": "O-", "category": "General", "admissionDate": "2021-07-15", "feeStatus": "Paid", "hostelRequired": "No"}
 ];
 
 let sampleFaculty = [
     {"id": "FAC001", "empId": "VVC001", "name": "Dr. Priya Sharma", "designation": "Professor", "department": "ARTS", "subjects": ["Ancient Indian History", "Modern Indian History"], "email": "priya.s@vivekvardhini.edu.in", "phone": "+91-9876543210"},
     {"id": "FAC002", "empId": "VVC002", "name": "Prof. Rajesh Kumar", "designation": "Associate Professor", "department": "BBA", "subjects": ["Principles of Management", "Marketing Management"], "email": "rajesh.k@vivekvardhini.edu.in", "phone": "+91-9876543211"},
     {"id": "FAC003", "empId": "VVC003", "name": "Dr. Suresh Patel", "designation": "Professor", "department": "COMM", "subjects": ["Financial Accounting", "Corporate Finance"], "email": "suresh.p@vivekvardhini.edu.in", "phone": "+91-9876543212"},
-    {"id": "FAC004", "empId": "VVC004", "name": "Dr. Anjali Reddy", "designation": "Professor", "department": "SCI", "subjects": ["Botany", "Environmental Biology"], "email": "anjali.r@vivekvardhini.edu.in", "phone": "+91-9876543213"},
-    {"id": "FAC005", "empId": "VVC005", "name": "Ms. Meera Joshi", "designation": "Assistant Professor", "department": "ARTS", "subjects": ["Microeconomics", "Indian Economy"], "email": "meera.j@vivekvardhini.edu.in", "phone": "+91-9876543214"},
-    {"id": "FAC006", "empId": "VVC006", "name": "Prof. Vikram Singh", "designation": "Associate Professor", "department": "BBA", "subjects": ["Data Analytics", "Business Intelligence"], "email": "vikram.s@vivekvardhini.edu.in", "phone": "+91-9876543215"}
-];
-
-let periods = [
-    {"id": "P001", "name": "Period 1", "startTime": "10:00", "endTime": "10:45", "display": "10:00-10:45 AM"},
-    {"id": "P002", "name": "Period 2", "startTime": "10:45", "endTime": "11:30", "display": "10:45-11:30 AM"},
-    {"id": "P003", "name": "Break", "startTime": "11:30", "endTime": "11:45", "display": "11:30-11:45 AM"},
-    {"id": "P004", "name": "Period 3", "startTime": "11:45", "endTime": "12:30", "display": "11:45-12:30 PM"},
-    {"id": "P005", "name": "Period 4", "startTime": "12:30", "endTime": "13:15", "display": "12:30-1:15 PM"},
-    {"id": "P006", "name": "Lunch Break", "startTime": "13:15", "endTime": "14:00", "display": "1:15-2:00 PM"},
-    {"id": "P007", "name": "Period 5", "startTime": "14:00", "endTime": "14:45", "display": "2:00-2:45 PM"},
-    {"id": "P008", "name": "Period 6", "startTime": "14:45", "endTime": "15:00", "display": "2:45-3:00 PM"}
+    {"id": "FAC004", "empId": "VVC004", "name": "Dr. Anjali Reddy", "designation": "Professor", "department": "SCI", "subjects": ["Botany", "Environmental Biology"], "email": "anjali.r@vivekvardhini.edu.in", "phone": "+91-9876543213"}
 ];
 
 const adminCredentials = [
@@ -97,6 +90,18 @@ let attendanceRecords = [];
 let currentAttendanceSession = null;
 let editingStudent = null;
 let editingFaculty = null;
+let editingDepartment = null;
+let editingCourse = null;
+
+// Global functions that need to be accessible from HTML onclick handlers
+window.editStudent = editStudent;
+window.deleteStudent = deleteStudent;
+window.editFaculty = editFaculty;
+window.deleteFaculty = deleteFaculty;
+window.editDepartment = editDepartment;
+window.deleteDepartment = deleteDepartment;
+window.editCourse = editCourse;
+window.deleteCourse = deleteCourse;
 
 // Initialize app when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
@@ -132,7 +137,8 @@ function setupLoginScreen() {
         return;
     }
     
-    adminRoleBtn.addEventListener('click', function() {
+    adminRoleBtn.addEventListener('click', function(e) {
+        e.preventDefault();
         console.log('Admin role selected');
         currentRole = 'admin';
         adminRoleBtn.classList.add('active');
@@ -141,7 +147,8 @@ function setupLoginScreen() {
         facultyFields.classList.add('hidden');
     });
     
-    facultyRoleBtn.addEventListener('click', function() {
+    facultyRoleBtn.addEventListener('click', function(e) {
+        e.preventDefault();
         console.log('Faculty role selected');
         currentRole = 'faculty';
         facultyRoleBtn.classList.add('active');
@@ -154,13 +161,14 @@ function setupLoginScreen() {
 function setupEventListeners() {
     console.log('Setting up event listeners...');
     
-    // Login form
+    // Login form - Fix event listener setup
     const loginForm = document.getElementById('loginForm');
     if (loginForm) {
         console.log('Login form found, adding event listener');
         loginForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            handleLogin();
+            console.log('Login form submitted');
+            handleLogin(e);
         });
     } else {
         console.error('Login form not found!');
@@ -171,10 +179,16 @@ function setupEventListeners() {
     const facultyLogoutBtn = document.getElementById('facultyLogoutBtn');
     
     if (adminLogoutBtn) {
-        adminLogoutBtn.addEventListener('click', handleLogout);
+        adminLogoutBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            handleLogout();
+        });
     }
     if (facultyLogoutBtn) {
-        facultyLogoutBtn.addEventListener('click', handleLogout);
+        facultyLogoutBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            handleLogout();
+        });
     }
     
     // Navigation
@@ -192,6 +206,7 @@ function setupNavigation() {
     
     document.querySelectorAll('.nav-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
+            e.preventDefault();
             const section = e.target.dataset.section;
             console.log('Navigation clicked:', section);
             navigateToSection(section);
@@ -202,6 +217,7 @@ function setupNavigation() {
         btn.addEventListener('click', (e) => {
             const section = e.target.dataset.section;
             if (section) {
+                e.preventDefault();
                 console.log('Quick action clicked:', section);
                 navigateToSection(section);
             }
@@ -217,18 +233,36 @@ function setupAdminEvents() {
     const saveStudentBtn = document.getElementById('saveStudentBtn');
     const cancelStudentBtn = document.getElementById('cancelStudentBtn');
     
-    if (addStudentBtn) addStudentBtn.addEventListener('click', () => openStudentModal());
-    if (saveStudentBtn) saveStudentBtn.addEventListener('click', saveStudent);
-    if (cancelStudentBtn) cancelStudentBtn.addEventListener('click', closeStudentModal);
+    if (addStudentBtn) addStudentBtn.addEventListener('click', (e) => { e.preventDefault(); openStudentModal(); });
+    if (saveStudentBtn) saveStudentBtn.addEventListener('click', (e) => { e.preventDefault(); saveStudent(); });
+    if (cancelStudentBtn) cancelStudentBtn.addEventListener('click', (e) => { e.preventDefault(); closeStudentModal(); });
     
     // Faculty management
     const addFacultyBtn = document.getElementById('addFacultyBtn');
     const saveFacultyBtn = document.getElementById('saveFacultyBtn');
     const cancelFacultyBtn = document.getElementById('cancelFacultyBtn');
     
-    if (addFacultyBtn) addFacultyBtn.addEventListener('click', () => openFacultyModal());
-    if (saveFacultyBtn) saveFacultyBtn.addEventListener('click', saveFaculty);
-    if (cancelFacultyBtn) cancelFacultyBtn.addEventListener('click', closeFacultyModal);
+    if (addFacultyBtn) addFacultyBtn.addEventListener('click', (e) => { e.preventDefault(); openFacultyModal(); });
+    if (saveFacultyBtn) saveFacultyBtn.addEventListener('click', (e) => { e.preventDefault(); saveFaculty(); });
+    if (cancelFacultyBtn) cancelFacultyBtn.addEventListener('click', (e) => { e.preventDefault(); closeFacultyModal(); });
+    
+    // Department management
+    const addDepartmentBtn = document.getElementById('addDepartmentBtn');
+    const saveDepartmentBtn = document.getElementById('saveDepartmentBtn');
+    const cancelDepartmentBtn = document.getElementById('cancelDepartmentBtn');
+    
+    if (addDepartmentBtn) addDepartmentBtn.addEventListener('click', (e) => { e.preventDefault(); openDepartmentModal(); });
+    if (saveDepartmentBtn) saveDepartmentBtn.addEventListener('click', (e) => { e.preventDefault(); saveDepartment(); });
+    if (cancelDepartmentBtn) cancelDepartmentBtn.addEventListener('click', (e) => { e.preventDefault(); closeDepartmentModal(); });
+    
+    // Course management
+    const addCourseBtn = document.getElementById('addCourseBtn');
+    const saveCourseBtn = document.getElementById('saveCourseBtn');
+    const cancelCourseBtn = document.getElementById('cancelCourseBtn');
+    
+    if (addCourseBtn) addCourseBtn.addEventListener('click', (e) => { e.preventDefault(); openCourseModal(); });
+    if (saveCourseBtn) saveCourseBtn.addEventListener('click', (e) => { e.preventDefault(); saveCourse(); });
+    if (cancelCourseBtn) cancelCourseBtn.addEventListener('click', (e) => { e.preventDefault(); closeCourseModal(); });
     
     // Search and filters
     const studentSearchInput = document.getElementById('studentSearchInput');
@@ -245,19 +279,16 @@ function setupAdminEvents() {
     
     // Reports
     const generateAdminReportBtn = document.getElementById('generateAdminReportBtn');
-    if (generateAdminReportBtn) generateAdminReportBtn.addEventListener('click', generateAdminReport);
+    if (generateAdminReportBtn) generateAdminReportBtn.addEventListener('click', (e) => { e.preventDefault(); generateAdminReport(); });
     
     // Bulk import simulation
     const bulkImportBtn = document.getElementById('bulkImportBtn');
     if (bulkImportBtn) {
-        bulkImportBtn.addEventListener('click', () => {
-            showSuccess('Bulk import feature available. Upload CSV with student data following Osmania University format.');
+        bulkImportBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            showSuccess('Bulk import feature would allow CSV upload in full version.');
         });
     }
-
-    // Course change handler for specializations
-    const studentCourse = document.getElementById('studentCourse');
-    if (studentCourse) studentCourse.addEventListener('change', updateSpecializations);
 }
 
 function setupFacultyEvents() {
@@ -270,45 +301,49 @@ function setupFacultyEvents() {
     const saveAttendanceBtn = document.getElementById('saveAttendanceBtn');
     const cancelAttendanceBtn = document.getElementById('cancelAttendanceBtn');
     
-    if (loadStudentsBtn) loadStudentsBtn.addEventListener('click', loadStudentsForAttendance);
-    if (markAllPresentBtn) markAllPresentBtn.addEventListener('click', () => markAllStudents('Present'));
-    if (markAllAbsentBtn) markAllAbsentBtn.addEventListener('click', () => markAllStudents('Absent'));
-    if (saveAttendanceBtn) saveAttendanceBtn.addEventListener('click', saveAttendance);
-    if (cancelAttendanceBtn) cancelAttendanceBtn.addEventListener('click', cancelAttendance);
+    if (loadStudentsBtn) loadStudentsBtn.addEventListener('click', (e) => { e.preventDefault(); loadStudentsForAttendance(); });
+    if (markAllPresentBtn) markAllPresentBtn.addEventListener('click', (e) => { e.preventDefault(); markAllStudents('Present'); });
+    if (markAllAbsentBtn) markAllAbsentBtn.addEventListener('click', (e) => { e.preventDefault(); markAllStudents('Absent'); });
+    if (saveAttendanceBtn) saveAttendanceBtn.addEventListener('click', (e) => { e.preventDefault(); saveAttendance(); });
+    if (cancelAttendanceBtn) cancelAttendanceBtn.addEventListener('click', (e) => { e.preventDefault(); cancelAttendance(); });
     
     // Records and filters
     const filterRecordsBtn = document.getElementById('filterRecordsBtn');
     const clearFiltersBtn = document.getElementById('clearFiltersBtn');
     
-    if (filterRecordsBtn) filterRecordsBtn.addEventListener('click', filterRecords);
-    if (clearFiltersBtn) clearFiltersBtn.addEventListener('click', clearRecordFilters);
+    if (filterRecordsBtn) filterRecordsBtn.addEventListener('click', (e) => { e.preventDefault(); filterRecords(); });
+    if (clearFiltersBtn) clearFiltersBtn.addEventListener('click', (e) => { e.preventDefault(); clearRecordFilters(); });
     
     // Faculty reports
     const generateFacultyReportBtn = document.getElementById('generateFacultyReportBtn');
-    if (generateFacultyReportBtn) generateFacultyReportBtn.addEventListener('click', generateFacultyReport);
+    if (generateFacultyReportBtn) generateFacultyReportBtn.addEventListener('click', (e) => { e.preventDefault(); generateFacultyReport(); });
     
     // Course and semester dependency
     const attendanceCourse = document.getElementById('attendanceCourse');
-    if (attendanceCourse) attendanceCourse.addEventListener('change', updateAttendanceSubjects);
+    const studentCourse = document.getElementById('studentCourse');
+    
+    if (attendanceCourse) attendanceCourse.addEventListener('change', updateSemesters);
+    if (studentCourse) studentCourse.addEventListener('change', updateStudentSemesters);
 }
 
-function handleLogin() {
+function handleLogin(e) {
+    if (e) e.preventDefault();
     console.log('handleLogin called with role:', currentRole);
     
     try {
         if (currentRole === 'admin') {
             console.log('Processing admin login...');
-            const usernameInput = document.getElementById('adminUsername');
-            const passwordInput = document.getElementById('adminPassword');
+            const usernameField = document.getElementById('adminUsername');
+            const passwordField = document.getElementById('adminPassword');
             
-            if (!usernameInput || !passwordInput) {
-                console.error('Admin input fields not found');
-                showError('Login form elements not found.');
+            if (!usernameField || !passwordField) {
+                console.error('Admin login fields not found');
+                showError('Login form fields not found.');
                 return;
             }
             
-            const username = usernameInput.value ? usernameInput.value.trim() : '';
-            const password = passwordInput.value ? passwordInput.value.trim() : '';
+            const username = usernameField.value.trim();
+            const password = passwordField.value.trim();
             
             console.log('Admin credentials entered:', { username: username, passwordLength: password.length });
             
@@ -333,17 +368,17 @@ function handleLogin() {
             }
         } else {
             console.log('Processing faculty login...');
-            const facultyNameInput = document.getElementById('facultyName');
-            const employeeIdInput = document.getElementById('employeeId');
+            const facultyNameField = document.getElementById('facultyName');
+            const employeeIdField = document.getElementById('employeeId');
             
-            if (!facultyNameInput || !employeeIdInput) {
-                console.error('Faculty input fields not found');
-                showError('Login form elements not found.');
+            if (!facultyNameField || !employeeIdField) {
+                console.error('Faculty login fields not found');
+                showError('Login form fields not found.');
                 return;
             }
             
-            const facultyName = facultyNameInput.value ? facultyNameInput.value.trim() : '';
-            const employeeId = employeeIdInput.value ? employeeIdInput.value.trim() : '';
+            const facultyName = facultyNameField.value.trim();
+            const employeeId = employeeIdField.value.trim();
             
             console.log('Faculty credentials entered:', { facultyName, employeeId });
             
@@ -362,7 +397,7 @@ function handleLogin() {
                     name: facultyName,
                     designation: "Assistant Professor",
                     department: "ARTS",
-                    subjects: ["General Subject"],
+                    subjects: ["General Studies"],
                     email: `${employeeId.toLowerCase()}@vivekvardhini.edu.in`,
                     phone: "+91-9876543999"
                 };
@@ -391,6 +426,8 @@ function handleLogout() {
     currentAttendanceSession = null;
     editingStudent = null;
     editingFaculty = null;
+    editingDepartment = null;
+    editingCourse = null;
     
     // Reset forms
     const loginForm = document.getElementById('loginForm');
@@ -495,15 +532,12 @@ function updateAdminDashboard() {
     const totalStudentsCount = document.getElementById('totalStudentsCount');
     const totalFacultyCount = document.getElementById('totalFacultyCount');
     const totalDepartmentsCount = document.getElementById('totalDepartmentsCount');
-    const todayAttendanceCount = document.getElementById('todayAttendanceCount');
+    const totalCoursesCount = document.getElementById('totalCoursesCount');
     
     if (totalStudentsCount) totalStudentsCount.textContent = sampleStudents.length;
     if (totalFacultyCount) totalFacultyCount.textContent = sampleFaculty.length;
     if (totalDepartmentsCount) totalDepartmentsCount.textContent = departments.length;
-    
-    const today = new Date().toISOString().split('T')[0];
-    const todayRecords = attendanceRecords.filter(r => r.date === today);
-    if (todayAttendanceCount) todayAttendanceCount.textContent = todayRecords.length;
+    if (totalCoursesCount) totalCoursesCount.textContent = courses.length;
 }
 
 function updateFacultyDashboard() {
@@ -520,7 +554,7 @@ function updateFacultyDashboard() {
     const facultyTotalStudents = document.getElementById('facultyTotalStudents');
     const facultyAvgAttendance = document.getElementById('facultyAvgAttendance');
     
-    if (facultyTodayClasses) facultyTodayClasses.textContent = periods.filter(p => !p.name.includes('Break')).length;
+    if (facultyTodayClasses) facultyTodayClasses.textContent = "5";
     if (facultyAttendanceMarked) facultyAttendanceMarked.textContent = todayRecords.length;
     if (facultyTotalStudents) facultyTotalStudents.textContent = sampleStudents.length;
     
@@ -555,10 +589,10 @@ function populateFacultyData() {
 }
 
 function populateCourseFilters() {
-    const selects = document.querySelectorAll('#courseFilter, #semesterFilter, #reportCourse, #attendanceCourse, #studentCourse, #filterCourse');
+    const selects = document.querySelectorAll('#courseFilter, #reportCourse, #attendanceCourse, #studentCourse, #filterCourse');
     
     selects.forEach(select => {
-        if (select.id.includes('course') || select.id === 'reportCourse') {
+        if (select) {
             select.innerHTML = '<option value="">All Courses</option>';
             courses.forEach(course => {
                 const option = document.createElement('option');
@@ -572,66 +606,63 @@ function populateCourseFilters() {
     // Populate semester filters
     const semesterSelects = document.querySelectorAll('#semesterFilter, #attendanceSemester, #studentSemester');
     semesterSelects.forEach(select => {
-        select.innerHTML = '<option value="">All Semesters</option>';
-        semesters.forEach(semester => {
-            const option = document.createElement('option');
-            option.value = semester;
-            option.textContent = `Semester ${semester}`;
-            select.appendChild(option);
-        });
+        if (select) {
+            select.innerHTML = '<option value="">All Semesters</option>';
+            semesters.forEach(semester => {
+                const option = document.createElement('option');
+                option.value = semester;
+                option.textContent = `Semester ${semester}`;
+                select.appendChild(option);
+            });
+        }
     });
 }
 
 function populateSubjectFilters() {
-    const allSubjects = [];
-    Object.values(subjects).forEach(subjectList => {
-        subjectList.forEach(subject => {
-            if (!allSubjects.includes(subject)) {
-                allSubjects.push(subject);
-            }
-        });
-    });
-    
     const selects = document.querySelectorAll('#attendanceSubject, #filterSubject, #facultySubjects');
     
     selects.forEach(select => {
-        if (select.id === 'facultySubjects') {
-            // Multi-select for faculty modal
-            select.innerHTML = '';
-            allSubjects.forEach(subject => {
-                const option = document.createElement('option');
-                option.value = subject;
-                option.textContent = subject;
-                select.appendChild(option);
-            });
-        } else {
-            select.innerHTML = '<option value="">Select Subject</option>';
-            allSubjects.forEach(subject => {
-                const option = document.createElement('option');
-                option.value = subject;
-                option.textContent = subject;
-                select.appendChild(option);
-            });
+        if (select) {
+            if (select.id === 'facultySubjects') {
+                // Multi-select for faculty modal
+                select.innerHTML = '';
+                Object.values(subjects).flat().forEach(subject => {
+                    const option = document.createElement('option');
+                    option.value = subject;
+                    option.textContent = subject;
+                    select.appendChild(option);
+                });
+            } else {
+                select.innerHTML = '<option value="">Select Subject</option>';
+                Object.values(subjects).flat().forEach(subject => {
+                    const option = document.createElement('option');
+                    option.value = subject;
+                    option.textContent = subject;
+                    select.appendChild(option);
+                });
+            }
         }
     });
 }
 
 function populateDepartmentFilters() {
-    const departmentSelects = document.querySelectorAll('#departmentFilter, #facultyDepartment, #departmentFilterStudents');
+    const departmentSelects = document.querySelectorAll('#departmentFilter, #facultyDepartment, #courseDepartment');
     
     departmentSelects.forEach(select => {
-        if (select.id === 'departmentFilter' || select.id === 'departmentFilterStudents') {
-            select.innerHTML = '<option value="">All Departments</option>';
-        } else {
-            select.innerHTML = '<option value="">Select Department</option>';
+        if (select) {
+            if (select.id === 'departmentFilter') {
+                select.innerHTML = '<option value="">All Departments</option>';
+            } else {
+                select.innerHTML = '<option value="">Select Department</option>';
+            }
+            
+            departments.forEach(dept => {
+                const option = document.createElement('option');
+                option.value = dept.code;
+                option.textContent = dept.name;
+                select.appendChild(option);
+            });
         }
-        
-        departments.forEach(dept => {
-            const option = document.createElement('option');
-            option.value = dept.code;
-            option.textContent = dept.name;
-            select.appendChild(option);
-        });
     });
 }
 
@@ -640,11 +671,26 @@ function populateAttendanceForm() {
     const periodSelect = document.getElementById('attendancePeriod');
     if (periodSelect) {
         periodSelect.innerHTML = '<option value="">Select Period</option>';
-        periods.filter(p => !p.name.includes('Break')).forEach(period => {
+        periods.filter(p => !p.isBreak && !p.isExtra).forEach(period => {
             const option = document.createElement('option');
             option.value = period.name;
             option.textContent = `${period.name} (${period.display})`;
             periodSelect.appendChild(option);
+        });
+    }
+    
+    // Populate subjects for current faculty
+    const subjectSelect = document.getElementById('attendanceSubject');
+    if (subjectSelect && currentUser) {
+        subjectSelect.innerHTML = '<option value="">Select Subject</option>';
+        
+        // Get subjects taught by current faculty
+        const facultySubjects = currentUser.subjects || [];
+        facultySubjects.forEach(subjectName => {
+            const option = document.createElement('option');
+            option.value = subjectName;
+            option.textContent = subjectName;
+            subjectSelect.appendChild(option);
         });
     }
 }
@@ -654,44 +700,36 @@ function populateFacultyFilters() {
     populateSubjectFilters();
 }
 
-function updateSpecializations() {
-    const courseSelect = document.getElementById('studentCourse');
-    const specializationSelect = document.getElementById('studentSpecialization');
+function updateSemesters() {
+    const courseSelect = document.getElementById('attendanceCourse');
+    const semesterSelect = document.getElementById('attendanceSemester');
     
-    if (!courseSelect || !specializationSelect) return;
+    if (!courseSelect || !semesterSelect) return;
     
-    const selectedCourse = courseSelect.value;
-    specializationSelect.innerHTML = '<option value="">Select Specialization</option>';
+    semesterSelect.innerHTML = '<option value="">Select Semester</option>';
     
-    const course = courses.find(c => c.code === selectedCourse);
-    if (course) {
+    semesters.forEach(semester => {
         const option = document.createElement('option');
-        option.value = course.specialization;
-        option.textContent = course.specialization;
-        specializationSelect.appendChild(option);
-        
-        // Auto-select the specialization
-        specializationSelect.value = course.specialization;
-    }
+        option.value = semester;
+        option.textContent = `Semester ${semester}`;
+        semesterSelect.appendChild(option);
+    });
 }
 
-function updateAttendanceSubjects() {
-    const courseSelect = document.getElementById('attendanceCourse');
-    const subjectSelect = document.getElementById('attendanceSubject');
+function updateStudentSemesters() {
+    const courseSelect = document.getElementById('studentCourse');
+    const semesterSelect = document.getElementById('studentSemester');
     
-    if (!courseSelect || !subjectSelect) return;
+    if (!courseSelect || !semesterSelect) return;
     
-    const selectedCourse = courseSelect.value;
-    subjectSelect.innerHTML = '<option value="">Select Subject</option>';
+    semesterSelect.innerHTML = '<option value="">Select Semester</option>';
     
-    if (selectedCourse && subjects[selectedCourse]) {
-        subjects[selectedCourse].forEach(subject => {
-            const option = document.createElement('option');
-            option.value = subject;
-            option.textContent = subject;
-            subjectSelect.appendChild(option);
-        });
-    }
+    semesters.forEach(semester => {
+        const option = document.createElement('option');
+        option.value = semester;
+        option.textContent = `Semester ${semester}`;
+        semesterSelect.appendChild(option);
+    });
 }
 
 // Student Management Functions
@@ -703,13 +741,16 @@ function loadStudentsTable() {
     tbody.innerHTML = '';
     
     sampleStudents.forEach(student => {
+        const course = courses.find(c => c.code === student.course);
+        const department = departments.find(d => d.code === student.department);
+        
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>${student.rollNo}</td>
             <td>${student.name}</td>
-            <td>${student.course}</td>
-            <td><span class="specialization-tag">${student.specialization}</span></td>
+            <td>${course ? course.name : student.course}</td>
             <td>Semester ${student.semester}</td>
+            <td>${department ? department.name : student.department}</td>
             <td>${student.parentPhone}</td>
             <td class="table-actions">
                 <button class="btn btn--sm btn--secondary" onclick="editStudent('${student.id}')">Edit</button>
@@ -734,28 +775,7 @@ function openStudentModal(studentId = null) {
     }
     
     // Populate course options
-    const courseSelect = document.getElementById('studentCourse');
-    if (courseSelect) {
-        courseSelect.innerHTML = '<option value="">Select Course</option>';
-        courses.forEach(course => {
-            const option = document.createElement('option');
-            option.value = course.code;
-            option.textContent = course.name;
-            courseSelect.appendChild(option);
-        });
-    }
-    
-    // Populate semester options
-    const semesterSelect = document.getElementById('studentSemester');
-    if (semesterSelect) {
-        semesterSelect.innerHTML = '<option value="">Select Semester</option>';
-        semesters.forEach(semester => {
-            const option = document.createElement('option');
-            option.value = semester;
-            option.textContent = `Semester ${semester}`;
-            semesterSelect.appendChild(option);
-        });
-    }
+    populateCourseFilters();
     
     if (studentId) {
         const student = sampleStudents.find(s => s.id === studentId);
@@ -765,19 +785,10 @@ function openStudentModal(studentId = null) {
             document.getElementById('studentName').value = student.name;
             document.getElementById('studentCourse').value = student.course;
             document.getElementById('studentSemester').value = student.semester;
-            document.getElementById('studentDOB').value = student.dob;
-            document.getElementById('studentFatherName').value = student.fatherName;
-            document.getElementById('studentMotherName').value = student.motherName;
+            document.getElementById('studentDOB').value = student.dob || '';
+            document.getElementById('studentParentName').value = student.fatherName || '';
             document.getElementById('studentParentPhone').value = student.parentPhone;
-            document.getElementById('studentEmail').value = student.studentEmail || '';
             document.getElementById('studentAddress').value = student.address || '';
-            document.getElementById('studentCategory').value = student.category || 'General';
-            
-            // Update specializations and set value
-            setTimeout(() => {
-                updateSpecializations();
-                document.getElementById('studentSpecialization').value = student.specialization;
-            }, 100);
         }
     } else {
         title.textContent = 'Add New Student';
@@ -799,17 +810,13 @@ function saveStudent() {
     const rollNo = document.getElementById('studentRollNo').value.trim();
     const name = document.getElementById('studentName').value.trim();
     const course = document.getElementById('studentCourse').value;
-    const specialization = document.getElementById('studentSpecialization').value;
     const semester = document.getElementById('studentSemester').value;
     const dob = document.getElementById('studentDOB').value;
-    const fatherName = document.getElementById('studentFatherName').value.trim();
-    const motherName = document.getElementById('studentMotherName').value.trim();
+    const parentName = document.getElementById('studentParentName').value.trim();
     const parentPhone = document.getElementById('studentParentPhone').value.trim();
-    const studentEmail = document.getElementById('studentEmail').value.trim();
     const address = document.getElementById('studentAddress').value.trim();
-    const category = document.getElementById('studentCategory').value;
     
-    if (!rollNo || !name || !course || !specialization || !semester || !fatherName || !motherName || !parentPhone) {
+    if (!rollNo || !name || !course || !semester || !parentName || !parentPhone) {
         showError('Please fill in all required fields.');
         return;
     }
@@ -821,27 +828,22 @@ function saveStudent() {
         return;
     }
     
-    // Find department from course
-    const courseObj = courses.find(c => c.code === course);
-    const department = courseObj ? courseObj.department : 'ARTS';
+    // Find course and department info
+    const courseInfo = courses.find(c => c.code === course);
+    const department = courseInfo ? courseInfo.department : 'ARTS';
     
     const studentData = {
         rollNo,
         name,
         course,
-        department,
-        specialization,
         semester,
+        department,
         dob,
-        fatherName,
-        motherName,
+        fatherName: parentName,
         parentPhone,
-        studentEmail,
         address,
-        category,
         academicYear: "2024-2025",
-        admissionDate: new Date().toISOString().split('T')[0],
-        feeStatus: "Paid"
+        specialization: courseInfo ? courseInfo.specialization : "General"
     };
     
     if (editingStudent) {
@@ -886,7 +888,6 @@ function filterStudents() {
     const searchTerm = document.getElementById('studentSearchInput')?.value.toLowerCase() || '';
     const courseFilter = document.getElementById('courseFilter')?.value || '';
     const semesterFilter = document.getElementById('semesterFilter')?.value || '';
-    const departmentFilter = document.getElementById('departmentFilterStudents')?.value || '';
     
     let filteredStudents = sampleStudents;
     
@@ -905,10 +906,6 @@ function filterStudents() {
         filteredStudents = filteredStudents.filter(student => student.semester === semesterFilter);
     }
     
-    if (departmentFilter) {
-        filteredStudents = filteredStudents.filter(student => student.department === departmentFilter);
-    }
-    
     // Update table with filtered results
     const tbody = document.getElementById('studentsTableBody');
     if (!tbody) return;
@@ -916,13 +913,16 @@ function filterStudents() {
     tbody.innerHTML = '';
     
     filteredStudents.forEach(student => {
+        const course = courses.find(c => c.code === student.course);
+        const department = departments.find(d => d.code === student.department);
+        
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>${student.rollNo}</td>
             <td>${student.name}</td>
-            <td>${student.course}</td>
-            <td><span class="specialization-tag">${student.specialization}</span></td>
+            <td>${course ? course.name : student.course}</td>
             <td>Semester ${student.semester}</td>
+            <td>${department ? department.name : student.department}</td>
             <td>${student.parentPhone}</td>
             <td class="table-actions">
                 <button class="btn btn--sm btn--secondary" onclick="editStudent('${student.id}')">Edit</button>
@@ -1130,46 +1130,6 @@ function filterFaculty() {
     });
 }
 
-// Course Management Functions
-function loadCoursesTable() {
-    console.log('Loading courses table...');
-    const tbody = document.getElementById('coursesTableBody');
-    if (!tbody) return;
-    
-    tbody.innerHTML = '';
-    
-    courses.forEach(course => {
-        const department = departments.find(d => d.code === course.department);
-        const departmentName = department ? department.name : course.department;
-        const enrolledCount = sampleStudents.filter(s => s.course === course.code).length;
-        
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${course.code}</td>
-            <td>${course.name}</td>
-            <td>${departmentName}</td>
-            <td><span class="specialization-tag">${course.specialization}</span></td>
-            <td>${course.duration}</td>
-            <td>${enrolledCount}</td>
-            <td class="table-actions">
-                <button class="btn btn--sm btn--secondary" onclick="viewSyllabus('${course.code}')">View Syllabus</button>
-                <button class="btn btn--sm btn--outline">Edit</button>
-            </td>
-        `;
-        tbody.appendChild(row);
-    });
-}
-
-function viewSyllabus(courseCode) {
-    const courseSubjects = subjects[courseCode];
-    if (courseSubjects) {
-        const subjectList = courseSubjects.join('\n• ');
-        showSuccess(`Subjects for ${courseCode}:\n\n• ${subjectList}\n\n(As per Osmania University Syllabus)`);
-    } else {
-        showError('Syllabus not found for this course.');
-    }
-}
-
 // Department Management Functions
 function loadDepartmentsTable() {
     console.log('Loading departments table...');
@@ -1190,15 +1150,278 @@ function loadDepartmentsTable() {
             <td>${facultyCount}</td>
             <td>${studentCount}</td>
             <td class="table-actions">
-                <button class="btn btn--sm btn--secondary">Edit</button>
-                <button class="btn btn--sm btn--outline">Delete</button>
+                <button class="btn btn--sm btn--secondary" onclick="editDepartment('${department.id}')">Edit</button>
+                <button class="btn btn--sm btn--outline" onclick="deleteDepartment('${department.id}')">Delete</button>
             </td>
         `;
         tbody.appendChild(row);
     });
 }
 
-// Attendance Functions
+function openDepartmentModal(departmentId = null) {
+    console.log('Opening department modal:', departmentId);
+    
+    editingDepartment = departmentId;
+    const modal = document.getElementById('departmentModal');
+    const title = document.getElementById('departmentModalTitle');
+    const form = document.getElementById('departmentForm');
+    
+    if (!modal || !title || !form) {
+        console.error('Department modal elements not found');
+        return;
+    }
+    
+    if (departmentId) {
+        const department = departments.find(d => d.id === departmentId);
+        if (department) {
+            title.textContent = 'Edit Department';
+            document.getElementById('departmentCode').value = department.code;
+            document.getElementById('departmentName').value = department.name;
+            document.getElementById('departmentHOD').value = department.hod;
+        }
+    } else {
+        title.textContent = 'Add New Department';
+        form.reset();
+    }
+    
+    modal.classList.remove('hidden');
+}
+
+function closeDepartmentModal() {
+    console.log('Closing department modal');
+    document.getElementById('departmentModal').classList.add('hidden');
+    editingDepartment = null;
+}
+
+function saveDepartment() {
+    console.log('Saving department...');
+    
+    const code = document.getElementById('departmentCode').value.trim().toUpperCase();
+    const name = document.getElementById('departmentName').value.trim();
+    const hod = document.getElementById('departmentHOD').value.trim();
+    
+    if (!code || !name || !hod) {
+        showError('Please fill in all required fields.');
+        return;
+    }
+    
+    // Check for duplicate department code
+    const existing = departments.find(d => d.code === code && d.id !== editingDepartment);
+    if (existing) {
+        showError('Department code already exists.');
+        return;
+    }
+    
+    const departmentData = {
+        code,
+        name,
+        hod
+    };
+    
+    if (editingDepartment) {
+        // Update existing department
+        const index = departments.findIndex(d => d.id === editingDepartment);
+        if (index >= 0) {
+            departments[index] = { ...departments[index], ...departmentData };
+        }
+        showSuccess('Department updated successfully!');
+    } else {
+        // Add new department
+        const newDepartment = {
+            id: `DEPT${Date.now()}`,
+            ...departmentData
+        };
+        departments.push(newDepartment);
+        showSuccess('Department added successfully!');
+    }
+    
+    closeDepartmentModal();
+    loadDepartmentsTable();
+    updateAdminDashboard();
+    populateDepartmentFilters(); // Refresh all department dropdowns
+}
+
+function editDepartment(departmentId) {
+    openDepartmentModal(departmentId);
+}
+
+function deleteDepartment(departmentId) {
+    const department = departments.find(d => d.id === departmentId);
+    if (!department) return;
+    
+    // Check if department has faculty or students
+    const hasStudents = sampleStudents.some(s => s.department === department.code);
+    const hasFaculty = sampleFaculty.some(f => f.department === department.code);
+    const hasCourses = courses.some(c => c.department === department.code);
+    
+    if (hasStudents || hasFaculty || hasCourses) {
+        showError('Cannot delete department. It has associated students, faculty, or courses.');
+        return;
+    }
+    
+    if (confirm(`Are you sure you want to delete ${department.name}?`)) {
+        const index = departments.findIndex(d => d.id === departmentId);
+        if (index >= 0) {
+            departments.splice(index, 1);
+            loadDepartmentsTable();
+            updateAdminDashboard();
+            populateDepartmentFilters(); // Refresh all department dropdowns
+            showSuccess('Department deleted successfully!');
+        }
+    }
+}
+
+// Course Management Functions
+function loadCoursesTable() {
+    console.log('Loading courses table...');
+    const tbody = document.getElementById('coursesTableBody');
+    if (!tbody) return;
+    
+    tbody.innerHTML = '';
+    
+    courses.forEach(course => {
+        const department = departments.find(d => d.code === course.department);
+        const departmentName = department ? department.name : course.department;
+        const enrolledCount = sampleStudents.filter(s => s.course === course.code).length;
+        
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${course.code}</td>
+            <td>${course.name}</td>
+            <td>${departmentName}</td>
+            <td>${course.specialization}</td>
+            <td>${course.duration}</td>
+            <td>${enrolledCount}</td>
+            <td class="table-actions">
+                <button class="btn btn--sm btn--secondary" onclick="editCourse('${course.id}')">Edit</button>
+                <button class="btn btn--sm btn--outline" onclick="deleteCourse('${course.id}')">Delete</button>
+            </td>
+        `;
+        tbody.appendChild(row);
+    });
+}
+
+function openCourseModal(courseId = null) {
+    console.log('Opening course modal:', courseId);
+    
+    editingCourse = courseId;
+    const modal = document.getElementById('courseModal');
+    const title = document.getElementById('courseModalTitle');
+    const form = document.getElementById('courseForm');
+    
+    if (!modal || !title || !form) {
+        console.error('Course modal elements not found');
+        return;
+    }
+    
+    // Populate departments
+    populateDepartmentFilters();
+    
+    if (courseId) {
+        const course = courses.find(c => c.id === courseId);
+        if (course) {
+            title.textContent = 'Edit Course';
+            document.getElementById('courseCode').value = course.code;
+            document.getElementById('courseName').value = course.name;
+            document.getElementById('courseDepartment').value = course.department;
+            document.getElementById('courseSpecialization').value = course.specialization;
+            document.getElementById('courseDuration').value = course.duration;
+        }
+    } else {
+        title.textContent = 'Add New Course';
+        form.reset();
+    }
+    
+    modal.classList.remove('hidden');
+}
+
+function closeCourseModal() {
+    console.log('Closing course modal');
+    document.getElementById('courseModal').classList.add('hidden');
+    editingCourse = null;
+}
+
+function saveCourse() {
+    console.log('Saving course...');
+    
+    const code = document.getElementById('courseCode').value.trim().toUpperCase();
+    const name = document.getElementById('courseName').value.trim();
+    const department = document.getElementById('courseDepartment').value;
+    const specialization = document.getElementById('courseSpecialization').value.trim();
+    const duration = document.getElementById('courseDuration').value;
+    
+    if (!code || !name || !department || !specialization || !duration) {
+        showError('Please fill in all required fields.');
+        return;
+    }
+    
+    // Check for duplicate course code
+    const existing = courses.find(c => c.code === code && c.id !== editingCourse);
+    if (existing) {
+        showError('Course code already exists.');
+        return;
+    }
+    
+    const courseData = {
+        code,
+        name,
+        department,
+        specialization,
+        duration
+    };
+    
+    if (editingCourse) {
+        // Update existing course
+        const index = courses.findIndex(c => c.id === editingCourse);
+        if (index >= 0) {
+            courses[index] = { ...courses[index], ...courseData };
+        }
+        showSuccess('Course updated successfully!');
+    } else {
+        // Add new course
+        const newCourse = {
+            id: `COURSE${Date.now()}`,
+            ...courseData
+        };
+        courses.push(newCourse);
+        showSuccess('Course added successfully!');
+    }
+    
+    closeCourseModal();
+    loadCoursesTable();
+    updateAdminDashboard();
+    populateCourseFilters(); // Refresh all course dropdowns
+}
+
+function editCourse(courseId) {
+    openCourseModal(courseId);
+}
+
+function deleteCourse(courseId) {
+    const course = courses.find(c => c.id === courseId);
+    if (!course) return;
+    
+    // Check if course has students
+    const hasStudents = sampleStudents.some(s => s.course === course.code);
+    
+    if (hasStudents) {
+        showError('Cannot delete course. It has enrolled students.');
+        return;
+    }
+    
+    if (confirm(`Are you sure you want to delete ${course.name}?`)) {
+        const index = courses.findIndex(c => c.id === courseId);
+        if (index >= 0) {
+            courses.splice(index, 1);
+            loadCoursesTable();
+            updateAdminDashboard();
+            populateCourseFilters(); // Refresh all course dropdowns
+            showSuccess('Course deleted successfully!');
+        }
+    }
+}
+
+// Attendance Functions - Enhanced for new timing structure
 function loadStudentsForAttendance() {
     const date = document.getElementById('attendanceDate').value;
     const course = document.getElementById('attendanceCourse').value;
@@ -1207,181 +1430,187 @@ function loadStudentsForAttendance() {
     const period = document.getElementById('attendancePeriod').value;
     
     if (!date || !course || !semester || !subject || !period) {
-        showError('Please fill in all fields to load student list.');
+        showError('Please fill in all required fields.');
         return;
     }
     
-    const studentsInClass = sampleStudents.filter(s => 
+    // Filter students for the selected course and semester
+    const filteredStudents = sampleStudents.filter(s => 
         s.course === course && s.semester === semester
     );
     
-    if (studentsInClass.length === 0) {
+    if (filteredStudents.length === 0) {
         showError('No students found for the selected course and semester.');
         return;
     }
     
-    // Show student attendance section
-    document.getElementById('studentAttendance').classList.remove('hidden');
+    // Show attendance section
+    const studentAttendance = document.getElementById('studentAttendance');
+    const attendanceTitle = document.getElementById('attendanceTitle');
+    const attendanceDate2 = document.getElementById('attendanceDate2');
     
-    // Update attendance info
-    document.getElementById('attendanceTitle').textContent = `${subject} - ${course} - ${period}`;
-    document.getElementById('attendanceDate2').textContent = new Date(date).toLocaleDateString();
+    if (studentAttendance && attendanceTitle && attendanceDate2) {
+        attendanceTitle.textContent = `${subject} - ${course} - ${period}`;
+        attendanceDate2.textContent = date;
+        studentAttendance.classList.remove('hidden');
+    }
     
     // Populate student table
     const tbody = document.getElementById('studentTableBody');
-    tbody.innerHTML = '';
-    
-    studentsInClass.forEach(student => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${student.rollNo}</td>
-            <td>${student.name}</td>
-            <td class="attendance-toggle">
-                <div class="attendance-radio present">
-                    <input type="radio" name="attendance_${student.id}" value="Present" id="present_${student.id}">
-                    <label for="present_${student.id}">Present</label>
-                </div>
-                <div class="attendance-radio absent">
-                    <input type="radio" name="attendance_${student.id}" value="Absent" id="absent_${student.id}">
-                    <label for="absent_${student.id}">Absent</label>
-                </div>
-            </td>
-        `;
-        tbody.appendChild(row);
-    });
+    if (tbody) {
+        tbody.innerHTML = '';
+        
+        filteredStudents.forEach(student => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${student.rollNo}</td>
+                <td>${student.name}</td>
+                <td class="attendance-toggle">
+                    <div class="attendance-radio present">
+                        <input type="radio" id="present_${student.id}" name="attendance_${student.id}" value="Present">
+                        <label for="present_${student.id}">Present</label>
+                    </div>
+                    <div class="attendance-radio absent">
+                        <input type="radio" id="absent_${student.id}" name="attendance_${student.id}" value="Absent">
+                        <label for="absent_${student.id}">Absent</label>
+                    </div>
+                </td>
+            `;
+            tbody.appendChild(row);
+        });
+    }
     
     currentAttendanceSession = {
-        date, course, semester, subject, period, students: studentsInClass
+        date,
+        course,
+        semester,
+        subject,
+        period,
+        students: filteredStudents
     };
     
-    showSuccess(`Loaded ${studentsInClass.length} students for attendance marking.`);
+    showSuccess('Student list loaded successfully!');
 }
 
 function markAllStudents(status) {
-    if (!currentAttendanceSession) return;
+    if (!currentAttendanceSession) {
+        showError('Please load student list first.');
+        return;
+    }
     
-    currentAttendanceSession.students.forEach(student => {
-        const presentRadio = document.getElementById(`present_${student.id}`);
-        const absentRadio = document.getElementById(`absent_${student.id}`);
-        
-        if (status === 'Present' && presentRadio) {
-            presentRadio.checked = true;
-        } else if (status === 'Absent' && absentRadio) {
-            absentRadio.checked = true;
-        }
-    });
+    const tbody = document.getElementById('studentTableBody');
+    if (tbody) {
+        const radios = tbody.querySelectorAll(`input[type="radio"][value="${status}"]`);
+        radios.forEach(radio => {
+            radio.checked = true;
+        });
+    }
     
     showSuccess(`All students marked as ${status}.`);
 }
 
 function saveAttendance() {
     if (!currentAttendanceSession) {
-        showError('No attendance session in progress.');
+        showError('Please load student list first.');
         return;
     }
     
-    const attendanceData = [];
-    let markedCount = 0;
+    const tbody = document.getElementById('studentTableBody');
+    if (!tbody) return;
     
-    currentAttendanceSession.students.forEach(student => {
-        const presentRadio = document.getElementById(`present_${student.id}`);
-        const absentRadio = document.getElementById(`absent_${student.id}`);
+    const attendanceData = [];
+    const rows = tbody.querySelectorAll('tr');
+    
+    rows.forEach((row, index) => {
+        const student = currentAttendanceSession.students[index];
+        const presentRadio = row.querySelector('input[value="Present"]');
+        const absentRadio = row.querySelector('input[value="Absent"]');
         
-        let status = null;
-        if (presentRadio && presentRadio.checked) {
-            status = 'Present';
-            markedCount++;
-        } else if (absentRadio && absentRadio.checked) {
-            status = 'Absent';
-            markedCount++;
-        }
+        let status = 'Not Marked';
+        if (presentRadio && presentRadio.checked) status = 'Present';
+        if (absentRadio && absentRadio.checked) status = 'Absent';
         
-        if (status) {
-            attendanceData.push({
-                ...student,
-                status: status
-            });
-        }
+        attendanceData.push({
+            ...student,
+            status
+        });
     });
     
-    if (markedCount === 0) {
-        showError('Please mark attendance for at least one student.');
+    // Check if all students have attendance marked
+    const unmarked = attendanceData.filter(s => s.status === 'Not Marked');
+    if (unmarked.length > 0) {
+        showError(`Please mark attendance for all students. ${unmarked.length} students are unmarked.`);
         return;
     }
     
     // Save attendance record
-    const record = {
-        id: Date.now(),
-        date: currentAttendanceSession.date,
-        course: currentAttendanceSession.course,
-        semester: currentAttendanceSession.semester,
-        subject: currentAttendanceSession.subject,
-        period: currentAttendanceSession.period,
+    const attendanceRecord = {
+        id: `ATT${Date.now()}`,
+        ...currentAttendanceSession,
         faculty: currentUser.name,
-        students: attendanceData
+        students: attendanceData,
+        timestamp: new Date().toLocaleString()
     };
     
-    attendanceRecords.push(record);
+    attendanceRecords.push(attendanceRecord);
     
-    showSuccess(`Attendance saved successfully for ${markedCount} students!`);
+    showSuccess('Attendance saved successfully!');
     cancelAttendance();
 }
 
 function cancelAttendance() {
-    document.getElementById('studentAttendance').classList.add('hidden');
-    document.getElementById('attendanceSetupForm').reset();
+    const studentAttendance = document.getElementById('studentAttendance');
+    if (studentAttendance) {
+        studentAttendance.classList.add('hidden');
+    }
+    
     currentAttendanceSession = null;
-    setCurrentDate();
+    
+    // Reset form
+    const form = document.getElementById('attendanceSetupForm');
+    if (form) {
+        form.reset();
+        setCurrentDate();
+    }
 }
 
-// Records and Reports Functions
+// Records and Reports
 function loadFacultyRecords() {
     const container = document.getElementById('recordsContainer');
     if (!container) return;
     
-    const facultyRecords = attendanceRecords.filter(r => r.faculty === currentUser.name);
+    const userRecords = attendanceRecords.filter(r => r.faculty === currentUser.name);
     
-    if (facultyRecords.length === 0) {
-        container.innerHTML = '<p class="no-records">No attendance records found. Start marking attendance to see records here.</p>';
+    if (userRecords.length === 0) {
+        container.innerHTML = '<p class="no-records">No attendance records found.</p>';
         return;
     }
     
     container.innerHTML = '';
     
-    facultyRecords.forEach(record => {
+    userRecords.forEach(record => {
         const presentCount = record.students.filter(s => s.status === 'Present').length;
         const absentCount = record.students.filter(s => s.status === 'Absent').length;
-        const totalCount = record.students.length;
         
-        const recordElement = document.createElement('div');
-        recordElement.className = 'record-item';
-        recordElement.innerHTML = `
+        const recordDiv = document.createElement('div');
+        recordDiv.className = 'record-item';
+        recordDiv.innerHTML = `
             <div class="record-header">
                 <div class="record-title">${record.subject} - ${record.course}</div>
-                <div class="record-meta">${new Date(record.date).toLocaleDateString()} - ${record.period}</div>
+                <div class="record-meta">${record.date} | ${record.period}</div>
             </div>
             <div class="record-stats">
-                <div class="record-stat stat-present">
-                    ✓ Present: ${presentCount}
-                </div>
-                <div class="record-stat stat-absent">
-                    ✗ Absent: ${absentCount}
-                </div>
-                <div class="record-stat">
-                    Total: ${totalCount}
-                </div>
-                <div class="record-stat">
-                    Attendance: ${Math.round((presentCount / totalCount) * 100)}%
-                </div>
+                <div class="record-stat stat-present">Present: ${presentCount}</div>
+                <div class="record-stat stat-absent">Absent: ${absentCount}</div>
+                <div class="record-stat">Total: ${record.students.length}</div>
             </div>
         `;
-        container.appendChild(recordElement);
+        container.appendChild(recordDiv);
     });
 }
 
 function filterRecords() {
     showSuccess('Records filtered successfully.');
-    loadFacultyRecords();
 }
 
 function clearRecordFilters() {
@@ -1389,15 +1618,14 @@ function clearRecordFilters() {
     document.getElementById('filterSubject').value = '';
     document.getElementById('filterCourse').value = '';
     showSuccess('Filters cleared.');
-    loadFacultyRecords();
 }
 
 function generateAdminReport() {
-    showSuccess('Admin attendance report generated successfully. Report shows attendance patterns across all departments and courses.');
+    showSuccess('Admin report generated successfully.');
 }
 
 function generateFacultyReport() {
-    showSuccess('Faculty report generated successfully. Report includes attendance summary and course-wise analysis.');
+    showSuccess('Faculty report generated successfully.');
 }
 
 function setupReportDates() {
@@ -1426,7 +1654,7 @@ function generateSampleAttendance() {
     console.log('Sample attendance records generated for demo purposes');
     attendanceRecords = [
         {
-            id: 1,
+            id: 'ATT1',
             date: new Date().toISOString().split('T')[0],
             course: "BA-HIST",
             semester: "I",
@@ -1444,7 +1672,8 @@ function setupModals() {
     // Success modal
     const successModalClose = document.getElementById('successModalClose');
     if (successModalClose) {
-        successModalClose.addEventListener('click', () => {
+        successModalClose.addEventListener('click', (e) => {
+            e.preventDefault();
             const successModal = document.getElementById('successModal');
             if (successModal) successModal.classList.add('hidden');
         });
@@ -1453,7 +1682,8 @@ function setupModals() {
     // Error modal
     const errorModalClose = document.getElementById('errorModalClose');
     if (errorModalClose) {
-        errorModalClose.addEventListener('click', () => {
+        errorModalClose.addEventListener('click', (e) => {
+            e.preventDefault();
             const errorModal = document.getElementById('errorModal');
             if (errorModal) errorModal.classList.add('hidden');
         });
