@@ -78,6 +78,7 @@
         <nav class="app-nav">
             <div class="nav-container">
                 <button class="nav-btn active" data-section="adminDashboard">Dashboard</button>
+                <button class="nav-btn" data-section="faceRecognition">Face Recognition</button>
                 <button class="nav-btn" data-section="studentManagement">Students</button>
                 <button class="nav-btn" data-section="facultyManagement">Faculty</button>
                 <button class="nav-btn" data-section="departmentManagement">Departments</button>
@@ -163,9 +164,210 @@
                     <div class="quick-actions">
                         <h3>Quick Actions</h3>
                         <div class="action-buttons">
-                            <button class="btn btn--primary" data-section="studentManagement">Manage Students</button>
-                            <button class="btn btn--secondary" data-section="departmentManagement">Manage Departments</button>
-                            <button class="btn btn--outline" data-section="courseManagement">Manage Courses</button>
+                            <button class="btn btn--primary" data-section="faceRecognition">Face Recognition</button>
+                            <button class="btn btn--secondary" data-section="studentManagement">Manage Students</button>
+                            <button class="btn btn--outline" data-section="departmentManagement">Manage Departments</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Face Recognition Section -->
+            <section id="faceRecognition" class="content-section">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>Student Face Recognition System</h2>
+                        <div class="privacy-notice">
+                            <span class="status status--info">🔒 Secure facial recognition system for student identification</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Camera Interface -->
+                    <div class="face-recognition-container">
+                        <div class="camera-section">
+                            <div class="camera-header">
+                                <h3>Live Camera Feed</h3>
+                                <div class="camera-status" id="cameraStatus">
+                                    <span class="status-dot offline"></span>
+                                    <span>Camera Offline</span>
+                                </div>
+                            </div>
+                            
+                            <div class="camera-container">
+                                <video id="cameraVideo" class="camera-video" autoplay muted></video>
+                                <canvas id="captureCanvas" class="capture-canvas hidden"></canvas>
+                                
+                                <!-- Face detection overlay -->
+                                <div class="face-detection-overlay">
+                                    <div class="detection-frame">
+                                        <div class="detection-corner tl"></div>
+                                        <div class="detection-corner tr"></div>
+                                        <div class="detection-corner bl"></div>
+                                        <div class="detection-corner br"></div>
+                                        <div class="detection-text">Position face within frame</div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Camera permission request -->
+                                <div id="cameraPermission" class="camera-permission">
+                                    <div class="permission-content">
+                                        <div class="permission-icon">📷</div>
+                                        <h4>Camera Access Required</h4>
+                                        <p>Please allow camera access to use face recognition for student identification</p>
+                                        <button id="requestCameraBtn" class="btn btn--primary">Grant Camera Access</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="camera-controls">
+                                <button id="capturePhotoBtn" class="btn btn--primary" disabled>
+                                    <span class="btn-icon">📷</span>
+                                    Capture Photo
+                                </button>
+                                <button id="switchCameraBtn" class="btn btn--secondary" disabled>
+                                    <span class="btn-icon">🔄</span>
+                                    Switch Camera
+                                </button>
+                                <button id="stopCameraBtn" class="btn btn--outline" disabled>
+                                    <span class="btn-icon">⏹️</span>
+                                    Stop Camera
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Results Section -->
+                        <div class="results-section">
+                            <div class="capture-preview" id="capturePreview">
+                                <h4>Captured Photo</h4>
+                                <div class="preview-placeholder">
+                                    <div class="placeholder-icon">📸</div>
+                                    <p>Capture a photo to see preview</p>
+                                </div>
+                            </div>
+                            
+                            <div class="identification-controls">
+                                <button id="identifyStudentBtn" class="btn btn--primary btn--full-width" disabled>
+                                    <span class="btn-icon">🔍</span>
+                                    Identify Student
+                                </button>
+                                <button id="retakePhotoBtn" class="btn btn--outline btn--full-width" disabled>
+                                    <span class="btn-icon">🔄</span>
+                                    Retake Photo
+                                </button>
+                            </div>
+                            
+                            <!-- Processing State -->
+                            <div id="processingState" class="processing-state hidden">
+                                <div class="processing-spinner">
+                                    <div class="spinner"></div>
+                                </div>
+                                <h4>Processing Face Recognition...</h4>
+                                <p>Analyzing facial features and matching with student database</p>
+                                <div class="processing-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" id="progressFill"></div>
+                                    </div>
+                                    <span class="progress-text" id="progressText">0%</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Student Results -->
+                            <div id="studentResults" class="student-results hidden">
+                                <div class="match-status">
+                                    <div class="match-success">
+                                        <span class="status-icon">✅</span>
+                                        <span class="match-text">Student Match Found!</span>
+                                        <span class="confidence-score" id="confidenceScore">95% Confidence</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="student-profile">
+                                    <div class="student-photo-section">
+                                        <img id="studentPhoto" class="student-photo" alt="Student Photo">
+                                        <div class="photo-comparison">
+                                            <span class="comparison-label">Database Photo</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="student-details">
+                                        <div class="detail-header">
+                                            <h3 id="studentName">Student Name</h3>
+                                            <span id="studentRollNo" class="roll-number">Roll No</span>
+                                        </div>
+                                        
+                                        <div class="detail-grid">
+                                            <div class="detail-item">
+                                                <label>Course</label>
+                                                <span id="studentCourseDetail">Course Name</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <label>Semester</label>
+                                                <span id="studentSemesterDetail">Semester</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <label>Department</label>
+                                                <span id="studentDepartmentDetail">Department</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <label>Academic Year</label>
+                                                <span id="studentAcademicYear">2024-2025</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <label>Father's Name</label>
+                                                <span id="studentFatherName">Father Name</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <label>Contact</label>
+                                                <span id="studentContact">Phone Number</span>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="attendance-summary">
+                                            <h4>Attendance Summary</h4>
+                                            <div class="attendance-stats">
+                                                <div class="attendance-stat">
+                                                    <span class="stat-label">Attendance %</span>
+                                                    <span class="stat-value" id="attendancePercentage">85.5%</span>
+                                                </div>
+                                                <div class="attendance-stat">
+                                                    <span class="stat-label">Classes Attended</span>
+                                                    <span class="stat-value" id="classesAttended">38/45</span>
+                                                </div>
+                                                <div class="attendance-stat">
+                                                    <span class="stat-label">Last Attendance</span>
+                                                    <span class="stat-value" id="lastAttendance">Sept 15, 2024</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="result-actions">
+                                    <button id="viewFullProfileBtn" class="btn btn--secondary">View Full Profile</button>
+                                    <button id="newRecognitionBtn" class="btn btn--primary">New Recognition</button>
+                                </div>
+                            </div>
+                            
+                            <!-- No Match Results -->
+                            <div id="noMatchResults" class="no-match-results hidden">
+                                <div class="no-match-status">
+                                    <span class="status-icon">❌</span>
+                                    <h4>No Student Match Found</h4>
+                                    <p>The captured face could not be matched with any student in the database.</p>
+                                </div>
+                                <div class="no-match-actions">
+                                    <button id="retryRecognitionBtn" class="btn btn--primary">Try Again</button>
+                                    <button id="manualSearchBtn" class="btn btn--secondary">Manual Search</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Recognition History -->
+                    <div class="recognition-history">
+                        <h3>Recent Recognition History</h3>
+                        <div class="history-list" id="recognitionHistory">
+                            <p class="no-data">No recognition history available.</p>
                         </div>
                     </div>
                 </div>
@@ -196,6 +398,7 @@
                         <table class="data-table">
                             <thead>
                                 <tr>
+                                    <th>Photo</th>
                                     <th>Roll No</th>
                                     <th>Name</th>
                                     <th>Course</th>
@@ -358,6 +561,25 @@
                                     <option value="2024-25">2024-25</option>
                                     <option value="2025-26">2025-26</option>
                                 </select>
+                            </div>
+                        </div>
+                        <div class="setting-card">
+                            <h3>Face Recognition Settings</h3>
+                            <div class="setting-content">
+                                <div class="checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="enableFaceRecognition" checked>
+                                        Enable Face Recognition System
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="saveRecognitionHistory" checked>
+                                        Save Recognition History
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="requireHighConfidence" checked>
+                                        Require High Confidence Match (>90%)
+                                    </label>
+                                </div>
                             </div>
                         </div>
                         <div class="setting-card">
